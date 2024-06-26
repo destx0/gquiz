@@ -11,7 +11,7 @@ const QuestionControls = ({
 	const currentSection = questions[currentSectionIndex];
 
 	return (
-		<div className="bg-gray-200 p-4 flex justify-start items-center fixed bottom-0 w-full">
+		<div className="bg-gray-200 p-4 flex justify-between items-center fixed bottom-0 w-full">
 			<div className="flex space-x-4">
 				<Button
 					onClick={() =>

@@ -14,8 +14,8 @@ const NavigationSidebar = ({
 }) => {
 	return (
 		<div
-			className={`fixed md:relative inset-0 md:inset-auto z-50 md:z-auto w-64 p-4 bg-gray-100 shadow-md transition-transform transform ${
-				showNavigation ? "translate-x-0" : "-translate-x-full"
+			className={`fixed md:relative right-0 md:right-auto inset-y-0 z-50 md:z-auto w-64 p-4 bg-gray-100 shadow-md transition-transform transform ${
+				showNavigation ? "translate-x-0" : "translate-x-full"
 			} md:translate-x-0`}
 		>
 			<div className="flex justify-between items-center mb-4">

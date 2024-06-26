@@ -5,6 +5,13 @@ import MainQuestion from "@/components/MainQuestion";
 import NavigationSidebar from "@/components/NavigationSidebar";
 import QuestionControls from "@/components/QuestionControls";
 import { Button } from "@/components/ui/button";
+import {
+	Select,
+	SelectContent,
+	SelectItem,
+	SelectTrigger,
+	SelectValue,
+} from "@/components/ui/select";
 import questions from "@/data/questions";
 
 export default function Test() {
@@ -55,24 +62,28 @@ export default function Test() {
 			</Head>
 			<div className="flex flex-col min-h-screen">
 				<header className="bg-gray-200 p-4 flex flex-col md:flex-row justify-between items-start md:items-center">
-					<div className="flex space-x-4 mb-4 md:mb-0">
-						{questions.map((section, index) => (
-							<Button
-								key={index}
-								onClick={() => switchSection(index)}
-								className={`${
-									currentSectionIndex === index
-										? "bg-blue-500 text-white"
-										: "bg-gray-300"
-								} px-4 py-2 rounded-lg`}
-							>
-								{section.section}
-							</Button>
-						))}
+					<div className="w-full md:w-auto mb-4 md:mb-0">
+						<Select
+							onValueChange={(value) =>
+								switchSection(parseInt(value))
+							}
+							defaultValue="0"
+						>
+							<SelectTrigger className="w-full md:w-[180px]">
+								<SelectValue placeholder="Select Section" />
+							</SelectTrigger>
+							<SelectContent>
+								{questions.map((section, index) => (
+									<SelectItem
+										key={index}
+										value={index.toString()}
+									>
+										{section.section}
+									</SelectItem>
+								))}
+							</SelectContent>
+						</Select>
 					</div>
-					<h1 className="text-2xl font-bold">
-						{questions[currentSectionIndex].section}
-					</h1>
 				</header>
 				<div className="flex flex-1">
 					<MainQuestion
