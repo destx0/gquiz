@@ -1,26 +1,34 @@
 "use client";
-import { useState, useEffect } from "react";
+import { useEffect } from "react";
 import Head from "next/head";
 import TestHeader from "@/components/TestHeader";
 import MainContent from "@/components/MainContent";
 import QuestionControls from "@/components/QuestionControls";
 import questions from "@/data/questions";
+import useTestStore from "@/store/useTestStore";
 
 export default function Test() {
-	const [currentSectionIndex, setCurrentSectionIndex] = useState(0);
-	const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
-	const [selectedOptions, setSelectedOptions] = useState(
-		questions.map((section) => Array(section.questions.length).fill(null))
-	);
-	const [visitedQuestions, setVisitedQuestions] = useState(
-		questions.map((section) => Array(section.questions.length).fill(false))
-	);
-	const [flaggedQuestions, setFlaggedQuestions] = useState(
-		questions.map((section) => Array(section.questions.length).fill(false))
-	);
-	const [showNavigation, setShowNavigation] = useState(false);
+	const {
+		initializeQuestions,
+		setCurrentSectionIndex,
+		setCurrentQuestionIndex,
+		handleOptionSelect,
+		unmarkQuestion,
+		markForReview,
+		jumpToQuestion,
+		setShowNavigation,
+		markQuestionAsVisited,
+		showNavigation,
+		currentSectionIndex,
+		currentQuestionIndex,
+		selectedOptions,
+		visitedQuestions,
+		flaggedQuestions,
+	} = useTestStore();
 
 	useEffect(() => {
+		initializeQuestions(questions);
+
 		const handleResize = () => {
 			if (window.innerWidth >= 768) {
 				setShowNavigation(true);
@@ -28,45 +36,15 @@ export default function Test() {
 				setShowNavigation(false);
 			}
 		};
+
 		window.addEventListener("resize", handleResize);
 		handleResize(); // Set the initial state based on the current window size
 		return () => window.removeEventListener("resize", handleResize);
-	}, []);
+	}, [initializeQuestions, setShowNavigation]);
 
 	useEffect(() => {
-		const newVisitedQuestions = [...visitedQuestions];
-		newVisitedQuestions[currentSectionIndex][currentQuestionIndex] = true;
-		setVisitedQuestions(newVisitedQuestions);
-	}, [currentQuestionIndex, currentSectionIndex]);
-
-	const handleOptionSelect = (index) => {
-		const newSelectedOptions = [...selectedOptions];
-		newSelectedOptions[currentSectionIndex][currentQuestionIndex] = index;
-		setSelectedOptions(newSelectedOptions);
-	};
-
-	const unmarkQuestion = (sectionIndex, questionIndex) => {
-		const newSelectedOptions = [...selectedOptions];
-		newSelectedOptions[sectionIndex][questionIndex] = null;
-		setSelectedOptions(newSelectedOptions);
-	};
-
-	const markForReview = (sectionIndex, questionIndex) => {
-		const newFlaggedQuestions = [...flaggedQuestions];
-		newFlaggedQuestions[sectionIndex][questionIndex] =
-			!newFlaggedQuestions[sectionIndex][questionIndex];
-		setFlaggedQuestions(newFlaggedQuestions);
-	};
-
-	const jumpToQuestion = (sectionIndex, questionIndex) => {
-		setCurrentSectionIndex(sectionIndex);
-		setCurrentQuestionIndex(questionIndex);
-	};
-
-	const switchSection = (sectionIndex) => {
-		setCurrentSectionIndex(sectionIndex);
-		setCurrentQuestionIndex(0);
-	};
+		markQuestionAsVisited();
+	}, [currentQuestionIndex, currentSectionIndex, markQuestionAsVisited]);
 
 	return (
 		<>
@@ -77,7 +55,7 @@ export default function Test() {
 			</Head>
 			<div className="flex flex-col min-h-screen">
 				<TestHeader
-					switchSection={switchSection}
+					switchSection={setCurrentSectionIndex}
 					setShowNavigation={setShowNavigation}
 					showNavigation={showNavigation}
 				/>

@@ -9,13 +9,18 @@ import {
 	SelectValue,
 } from "@/components/ui/select";
 import questions from "@/data/questions";
+import useTestStore from "@/store/useTestStore";
 
-const TestHeader = ({ switchSection, setShowNavigation, showNavigation }) => {
+const TestHeader = ({ setShowNavigation }) => {
+	const { setCurrentSectionIndex, showNavigation } = useTestStore();
+
 	return (
 		<div className="bg-gray-200 p-4 flex justify-between items-center">
 			<div className="w-full md:w-auto">
 				<Select
-					onValueChange={(value) => switchSection(parseInt(value))}
+					onValueChange={(value) =>
+						setCurrentSectionIndex(parseInt(value))
+					}
 					defaultValue="0"
 				>
 					<SelectTrigger className="w-full md:w-[180px]">

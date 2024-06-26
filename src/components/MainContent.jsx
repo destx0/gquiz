@@ -1,19 +1,22 @@
 import React from "react";
 import MainQuestion from "@/components/MainQuestion";
 import NavigationSidebar from "@/components/NavigationSidebar";
+import useTestStore from "@/store/useTestStore";
 import questions from "@/data/questions";
 
-const MainContent = ({
-	currentSectionIndex,
-	currentQuestionIndex,
-	selectedOptions,
-	handleOptionSelect,
-	jumpToQuestion,
-	visitedQuestions,
-	flaggedQuestions,
-	showNavigation,
-	setShowNavigation,
-}) => {
+const MainContent = () => {
+	const {
+		currentSectionIndex,
+		currentQuestionIndex,
+		selectedOptions,
+		handleOptionSelect,
+		jumpToQuestion,
+		visitedQuestions,
+		flaggedQuestions,
+		showNavigation,
+		setShowNavigation,
+	} = useTestStore();
+
 	return (
 		<div className="flex flex-1">
 			<MainQuestion

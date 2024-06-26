@@ -8,23 +8,23 @@ const MainQuestion = ({
 	selectedOptions,
 	handleOptionSelect,
 }) => {
-	const currentSection = questions[currentSectionIndex];
-	const currentQuestion = currentSection.questions[currentQuestionIndex];
+	const currentQuestion =
+		questions[currentSectionIndex]?.questions[currentQuestionIndex];
+
+	if (!currentQuestion) {
+		return <div>Loading...</div>;
+	}
+
+	const selectedOptionIndex =
+		selectedOptions[currentSectionIndex]?.[currentQuestionIndex] ?? null;
 
 	return (
-		<div className="flex-1 p-4">
-			<h1 className="text-2xl font-bold mb-4">
-				Question No. {currentQuestionIndex + 1}
-			</h1>
-			<Question
-				question={currentQuestion.question}
-				options={currentQuestion.options}
-				selectedOptionIndex={
-					selectedOptions[currentSectionIndex][currentQuestionIndex]
-				}
-				onSelectOption={handleOptionSelect}
-			/>
-		</div>
+		<Question
+			question={currentQuestion.question}
+			options={currentQuestion.options}
+			selectedOptionIndex={selectedOptionIndex}
+			onSelectOption={handleOptionSelect}
+		/>
 	);
 };
 
