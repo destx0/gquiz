@@ -3,16 +3,15 @@ import { Button } from "@/components/ui/button";
 import QuestionNavigation from "@/components/QuestionNavigation";
 
 const NavigationSidebar = ({
-	questions,
 	currentSectionIndex,
 	currentQuestionIndex,
 	jumpToQuestion,
 	selectedOptions,
+	visitedQuestions,
 	showNavigation,
 	setShowNavigation,
+	numberOfQuestions,
 }) => {
-	const currentSection = questions[currentSectionIndex];
-
 	return (
 		<div
 			className={`fixed md:relative inset-0 md:inset-auto z-50 md:z-auto w-64 p-4 bg-gray-100 shadow-md transition-transform transform ${
@@ -29,12 +28,13 @@ const NavigationSidebar = ({
 				</Button>
 			</div>
 			<QuestionNavigation
-				numberOfQuestions={currentSection.questions.length}
+				numberOfQuestions={numberOfQuestions}
 				currentQuestionIndex={currentQuestionIndex}
 				jumpToQuestion={(questionIndex) =>
 					jumpToQuestion(currentSectionIndex, questionIndex)
 				}
-				selectedOptions={selectedOptions[currentSectionIndex]}
+				selectedOptions={selectedOptions}
+				visitedQuestions={visitedQuestions}
 			/>
 		</div>
 	);

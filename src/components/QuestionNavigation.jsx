@@ -6,24 +6,22 @@ const QuestionNavigation = ({
 	currentQuestionIndex,
 	jumpToQuestion,
 	selectedOptions,
+	visitedQuestions,
 }) => {
 	return (
 		<div className="grid grid-cols-5 gap-2">
 			{Array.from({ length: numberOfQuestions }).map((_, index) => {
 				const isSelected = selectedOptions[index] !== null;
-				const isVisited =
-					selectedOptions[index] === null &&
-					index <= currentQuestionIndex;
+				const isVisited = visitedQuestions[index];
 				const isActive = currentQuestionIndex === index;
 
 				let bgColor = "bg-red-500"; // Not Visited
-				if (isSelected) {
+				if (isActive) {
+					bgColor = "bg-blue-500"; // Active
+				} else if (isSelected) {
 					bgColor = "bg-green-500"; // Answered
 				} else if (isVisited) {
 					bgColor = "bg-yellow-500"; // Visited but not answered
-				}
-				if (isActive) {
-					bgColor = "bg-blue-500"; // Active
 				}
 
 				return (

@@ -1,8 +1,9 @@
 "use client";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Head from "next/head";
 import MainQuestion from "@/components/MainQuestion";
 import NavigationSidebar from "@/components/NavigationSidebar";
+import QuestionControls from "@/components/QuestionControls";
 import { Button } from "@/components/ui/button";
 import questions from "@/data/questions";
 
@@ -12,7 +13,16 @@ export default function Test() {
 	const [selectedOptions, setSelectedOptions] = useState(
 		questions.map((section) => Array(section.questions.length).fill(null))
 	);
+	const [visitedQuestions, setVisitedQuestions] = useState(
+		questions.map((section) => Array(section.questions.length).fill(false))
+	);
 	const [showNavigation, setShowNavigation] = useState(false);
+
+	useEffect(() => {
+		const newVisitedQuestions = [...visitedQuestions];
+		newVisitedQuestions[currentSectionIndex][currentQuestionIndex] = true;
+		setVisitedQuestions(newVisitedQuestions);
+	}, [currentQuestionIndex, currentSectionIndex]);
 
 	const handleOptionSelect = (index) => {
 		const newSelectedOptions = [...selectedOptions];
@@ -60,7 +70,9 @@ export default function Test() {
 							</Button>
 						))}
 					</div>
-					<h1 className="text-2xl font-bold">Test Page</h1>
+					<h1 className="text-2xl font-bold">
+						{questions[currentSectionIndex].section}
+					</h1>
 				</header>
 				<div className="flex flex-1">
 					<MainQuestion
@@ -69,25 +81,33 @@ export default function Test() {
 						questions={questions}
 						selectedOptions={selectedOptions}
 						handleOptionSelect={handleOptionSelect}
-						setCurrentQuestionIndex={setCurrentQuestionIndex}
-						unmarkQuestion={unmarkQuestion}
 					/>
 					<NavigationSidebar
-						questions={questions}
 						currentSectionIndex={currentSectionIndex}
 						currentQuestionIndex={currentQuestionIndex}
 						jumpToQuestion={jumpToQuestion}
-						selectedOptions={selectedOptions}
+						selectedOptions={selectedOptions[currentSectionIndex]}
+						visitedQuestions={visitedQuestions[currentSectionIndex]}
 						showNavigation={showNavigation}
 						setShowNavigation={setShowNavigation}
+						numberOfQuestions={
+							questions[currentSectionIndex].questions.length
+						}
 					/>
-					<Button
-						className="fixed bottom-4 right-4 md:hidden"
-						onClick={() => setShowNavigation(true)}
-					>
-						Questions
-					</Button>
 				</div>
+				<QuestionControls
+					currentQuestionIndex={currentQuestionIndex}
+					currentSectionIndex={currentSectionIndex}
+					questions={questions}
+					setCurrentQuestionIndex={setCurrentQuestionIndex}
+					unmarkQuestion={unmarkQuestion}
+				/>
+				<Button
+					className="fixed bottom-4 right-4 md:hidden"
+					onClick={() => setShowNavigation(true)}
+				>
+					Questions
+				</Button>
 			</div>
 		</>
 	);
