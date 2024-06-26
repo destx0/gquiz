@@ -1,6 +1,6 @@
 import React from "react";
 import { Button } from "@/components/ui/button";
-import { Menu } from "lucide-react";
+import { PanelRightOpen, PanelRightClose } from "lucide-react";
 import { Tabs, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import questions from "@/data/questions";
 import useTestStore from "@/store/useTestStore";
@@ -11,7 +11,7 @@ const TestHeader = ({ setShowNavigation }) => {
 
 	return (
 		<div className="bg-gray-200 p-4 flex items-center justify-between">
-			<div className=" overflow-x-auto ">
+			<div className="overflow-x-auto">
 				<Tabs
 					defaultValue={currentSectionIndex.toString()}
 					onValueChange={(value) =>
@@ -31,7 +31,7 @@ const TestHeader = ({ setShowNavigation }) => {
 				className="ml-4 flex-shrink-0"
 				onClick={() => setShowNavigation(!showNavigation)}
 			>
-				<Menu />
+				{showNavigation ? <PanelRightClose /> : <PanelRightOpen />}
 			</Button>
 		</div>
 	);
