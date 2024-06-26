@@ -20,7 +20,7 @@ const QuestionControls = ({
 	return (
 		<div className="bg-gray-100 p-4 fixed bottom-0 w-full">
 			<div className="space-x-4 flex justify-start">
-				<Button
+				{/* <Button
 					onClick={() =>
 						setCurrentQuestionIndex(currentQuestionIndex - 1)
 					}
@@ -29,7 +29,7 @@ const QuestionControls = ({
 				>
 					<FaArrowLeft />
 					<span>Previous</span>
-				</Button>
+				</Button> */}
 				<Button
 					onClick={() =>
 						setCurrentQuestionIndex(currentQuestionIndex + 1)
@@ -64,7 +64,7 @@ const QuestionControls = ({
 					className="flex items-center space-x-2"
 				>
 					<FaRegFlag />
-					<span>Mark for Review</span>
+					<span>Mark for Review{markForReview }</span>
 				</Button>
 			</div>
 		</div>
