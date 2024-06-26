@@ -1,22 +1,37 @@
 const questions = [
 	{
-		section: "General Knowledge",
+		section: "GK",
 		questions: [
 			{
-				question: "What is the capital of France?",
-				options: ["Paris", "London", "Berlin", "Madrid"],
+				question: "Who is known as the Father of the Indian Nation?",
+				options: [
+					"Mahatma Gandhi",
+					"Jawaharlal Nehru",
+					"Sardar Patel",
+					"Subhas Chandra Bose",
+				],
 			},
 			{
-				question: "What is the capital of Germany?",
-				options: ["Paris", "London", "Berlin", "Madrid"],
+				question: "Which is the highest civilian award in India?",
+				options: [
+					"Bharat Ratna",
+					"Padma Vibhushan",
+					"Padma Bhushan",
+					"Padma Shri",
+				],
 			},
 			{
-				question: "What is the capital of Spain?",
-				options: ["Paris", "London", "Berlin", "Madrid"],
+				question: "What is the national animal of India?",
+				options: ["Tiger", "Lion", "Elephant", "Peacock"],
 			},
 			{
-				question: "What is the capital of Italy?",
-				options: ["Rome", "London", "Berlin", "Madrid"],
+				question: "Who wrote the national anthem of India?",
+				options: [
+					"Rabindranath Tagore",
+					"Bankim Chandra Chatterjee",
+					"Sarojini Naidu",
+					"Sarat Chandra Chattopadhyay",
+				],
 			},
 		],
 	},
@@ -24,26 +39,21 @@ const questions = [
 		section: "Science",
 		questions: [
 			{
-				question: "What is H2O commonly known as?",
-				options: ["Water", "Oxygen", "Hydrogen", "Salt"],
+				question: "What is the chemical formula for water?",
+				options: ["H2O", "CO2", "O2", "NaCl"],
 			},
 			{
 				question: "What planet is known as the Red Planet?",
 				options: ["Mars", "Earth", "Jupiter", "Venus"],
 			},
 			{
-				question: "What is the speed of light?",
-				options: [
-					"299,792 km/s",
-					"150,000 km/s",
-					"1,000 km/s",
-					"1,000,000 km/s",
-				],
+				question: "What is the boiling point of water?",
+				options: ["100°C", "0°C", "50°C", "37°C"],
 			},
 		],
 	},
 	{
-		section: "Mathematics",
+		section: "Maths",
 		questions: [
 			{
 				question: "What is 2 + 2?",
@@ -121,7 +131,7 @@ const questions = [
 		],
 	},
 	{
-		section: "Geography",
+		section: "Geo",
 		questions: [
 			{
 				question: "What is the largest continent?",

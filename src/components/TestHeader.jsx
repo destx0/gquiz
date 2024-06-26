@@ -18,7 +18,7 @@ const TestHeader = ({ setShowNavigation }) => {
 						setCurrentSectionIndex(parseInt(value))
 					}
 				>
-					<TabsList className="flex gap-2">
+					<TabsList className="flex px-2 gap-2">
 						{questions.map((section, index) => (
 							<TabsTrigger key={index} value={index.toString()}>
 								{section.section.split(" ")[0]}
