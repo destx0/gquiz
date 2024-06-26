@@ -39,6 +39,12 @@ export default function Test() {
 		return () => window.removeEventListener("resize", handleResize);
 	}, []);
 
+	useEffect(() => {
+		const newVisitedQuestions = [...visitedQuestions];
+		newVisitedQuestions[currentSectionIndex][currentQuestionIndex] = true;
+		setVisitedQuestions(newVisitedQuestions);
+	}, [currentQuestionIndex, currentSectionIndex]);
+
 	const handleOptionSelect = (index) => {
 		const newSelectedOptions = [...selectedOptions];
 		newSelectedOptions[currentSectionIndex][currentQuestionIndex] = index;
