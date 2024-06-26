@@ -102,7 +102,7 @@ export default function Test() {
 						</Select>
 					</div>
 				</header>
-				<div className="flex flex-1">
+				<div className="flex flex-1 h-full">
 					<MainQuestion
 						currentSectionIndex={currentSectionIndex}
 						currentQuestionIndex={currentQuestionIndex}
