@@ -18,27 +18,31 @@ const MainContent = () => {
 	} = useTestStore();
 
 	return (
-		<div className="flex flex-1">
-			<MainQuestion
-				currentSectionIndex={currentSectionIndex}
-				currentQuestionIndex={currentQuestionIndex}
-				questions={questions}
-				selectedOptions={selectedOptions}
-				handleOptionSelect={handleOptionSelect}
-			/>
-			<NavigationSidebar
-				currentSectionIndex={currentSectionIndex}
-				currentQuestionIndex={currentQuestionIndex}
-				jumpToQuestion={jumpToQuestion}
-				selectedOptions={selectedOptions[currentSectionIndex]}
-				visitedQuestions={visitedQuestions[currentSectionIndex]}
-				flaggedQuestions={flaggedQuestions[currentSectionIndex]}
-				showNavigation={showNavigation}
-				setShowNavigation={setShowNavigation}
-				numberOfQuestions={
-					questions[currentSectionIndex].questions.length
-				}
-			/>
+		<div className="flex w-full">
+			<div className="flex-grow">
+				<MainQuestion
+					currentSectionIndex={currentSectionIndex}
+					currentQuestionIndex={currentQuestionIndex}
+					questions={questions}
+					selectedOptions={selectedOptions}
+					handleOptionSelect={handleOptionSelect}
+				/>
+			</div>
+			<div className="flex-shrink-0">
+				<NavigationSidebar
+					currentSectionIndex={currentSectionIndex}
+					currentQuestionIndex={currentQuestionIndex}
+					jumpToQuestion={jumpToQuestion}
+					selectedOptions={selectedOptions[currentSectionIndex]}
+					visitedQuestions={visitedQuestions[currentSectionIndex]}
+					flaggedQuestions={flaggedQuestions[currentSectionIndex]}
+					showNavigation={showNavigation}
+					setShowNavigation={setShowNavigation}
+					numberOfQuestions={
+						questions[currentSectionIndex].questions.length
+					}
+				/>
+			</div>
 		</div>
 	);
 };
