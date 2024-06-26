@@ -20,16 +20,7 @@ const QuestionControls = ({
 	return (
 		<div className="bg-gray-100 p-4 fixed bottom-0 w-full">
 			<div className="space-x-4 flex justify-start">
-				{/* <Button
-					onClick={() =>
-						setCurrentQuestionIndex(currentQuestionIndex - 1)
-					}
-					disabled={currentQuestionIndex === 0}
-					className="flex items-center space-x-2"
-				>
-					<FaArrowLeft />
-					<span>Previous</span>
-				</Button> */}
+
 				<Button
 					onClick={() =>
 						setCurrentQuestionIndex(currentQuestionIndex + 1)
