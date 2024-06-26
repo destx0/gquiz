@@ -1,60 +1,39 @@
 "use client";
 import { useState } from "react";
 import Head from "next/head";
-import Question from "@/components/Question";
-import QuestionNavigation from "@/components/QuestionNavigation";
+import MainQuestion from "@/components/MainQuestion";
+import NavigationSidebar from "@/components/NavigationSidebar";
 import { Button } from "@/components/ui/button";
-
-const questions = [
-	{
-		question: "What is the capital of France?",
-		options: ["Paris", "London", "Berlin", "Madrid"],
-	},
-	{
-		question: "What is the capital of Germany?",
-		options: ["Paris", "London", "Berlin", "Madrid"],
-	},
-	{
-		question: "What is the capital of Spain?",
-		options: ["Paris", "London", "Berlin", "Madrid"],
-	},
-	{
-		question: "What is the capital of Italy?",
-		options: ["Rome", "London", "Berlin", "Madrid"],
-	},
-	{
-		question: "What is the capital of France?",
-		options: ["Paris", "London", "Berlin", "Madrid"],
-	},
-	{
-		question: "What is the capital of Germany?",
-		options: ["Paris", "London", "Berlin", "Madrid"],
-	},
-	{
-		question: "What is the capital of Spain?",
-		options: ["Paris", "London", "Berlin", "Madrid"],
-	},
-	{
-		question: "What is the capital of Italy?",
-		options: ["Rome", "London", "Berlin", "Madrid"],
-	},
-];
+import questions from "@/data/questions";
 
 export default function Test() {
+	const [currentSectionIndex, setCurrentSectionIndex] = useState(0);
 	const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
 	const [selectedOptions, setSelectedOptions] = useState(
-		Array(questions.length).fill(null)
+		questions.map((section) => Array(section.questions.length).fill(null))
 	);
 	const [showNavigation, setShowNavigation] = useState(false);
 
 	const handleOptionSelect = (index) => {
 		const newSelectedOptions = [...selectedOptions];
-		newSelectedOptions[currentQuestionIndex] = index;
+		newSelectedOptions[currentSectionIndex][currentQuestionIndex] = index;
 		setSelectedOptions(newSelectedOptions);
 	};
 
-	const jumpToQuestion = (index) => {
-		setCurrentQuestionIndex(index);
+	const unmarkQuestion = (sectionIndex, questionIndex) => {
+		const newSelectedOptions = [...selectedOptions];
+		newSelectedOptions[sectionIndex][questionIndex] = null;
+		setSelectedOptions(newSelectedOptions);
+	};
+
+	const jumpToQuestion = (sectionIndex, questionIndex) => {
+		setCurrentSectionIndex(sectionIndex);
+		setCurrentQuestionIndex(questionIndex);
+	};
+
+	const switchSection = (sectionIndex) => {
+		setCurrentSectionIndex(sectionIndex);
+		setCurrentQuestionIndex(0);
 	};
 
 	return (
@@ -64,71 +43,51 @@ export default function Test() {
 				<meta name="description" content="This is a test page." />
 				<link rel="icon" href="/favicon.ico" />
 			</Head>
-			<div className="flex min-h-screen">
-				<div className="flex-1 p-4">
-					<h1 className="text-2xl font-bold mb-4">
-						Question No. {currentQuestionIndex + 1}
-					</h1>
-					<Question
-						question={questions[currentQuestionIndex].question}
-						options={questions[currentQuestionIndex].options}
-						selectedOptionIndex={
-							selectedOptions[currentQuestionIndex]
-						}
-						onSelectOption={handleOptionSelect}
+			<div className="flex flex-col min-h-screen">
+				<header className="bg-gray-200 p-4 flex flex-col md:flex-row justify-between items-start md:items-center">
+					<div className="flex space-x-4 mb-4 md:mb-0">
+						{questions.map((section, index) => (
+							<Button
+								key={index}
+								onClick={() => switchSection(index)}
+								className={`${
+									currentSectionIndex === index
+										? "bg-blue-500 text-white"
+										: "bg-gray-300"
+								} px-4 py-2 rounded-lg`}
+							>
+								{section.section}
+							</Button>
+						))}
+					</div>
+					<h1 className="text-2xl font-bold">Test Page</h1>
+				</header>
+				<div className="flex flex-1">
+					<MainQuestion
+						currentSectionIndex={currentSectionIndex}
+						currentQuestionIndex={currentQuestionIndex}
+						questions={questions}
+						selectedOptions={selectedOptions}
+						handleOptionSelect={handleOptionSelect}
+						setCurrentQuestionIndex={setCurrentQuestionIndex}
+						unmarkQuestion={unmarkQuestion}
 					/>
-					<div className="mt-4 flex space-x-4">
-						<Button
-							onClick={() =>
-								setCurrentQuestionIndex(
-									currentQuestionIndex - 1
-								)
-							}
-							disabled={currentQuestionIndex === 0}
-						>
-							Previous
-						</Button>
-						<Button
-							onClick={() =>
-								setCurrentQuestionIndex(
-									currentQuestionIndex + 1
-								)
-							}
-							disabled={
-								currentQuestionIndex === questions.length - 1
-							}
-						>
-							Next
-						</Button>
-					</div>
-				</div>
-				<div
-					className={`fixed md:relative inset-0 md:inset-auto z-50 md:z-auto w-64 p-4 bg-gray-100 shadow-md transition-transform transform ${
-						showNavigation ? "translate-x-0" : "-translate-x-full"
-					} md:translate-x-0`}
-				>
-					<div className="flex justify-between items-center mb-4">
-						<h2 className="text-lg font-semibold">Questions</h2>
-						<Button
-							className="md:hidden"
-							onClick={() => setShowNavigation(false)}
-						>
-							Close
-						</Button>
-					</div>
-					<QuestionNavigation
-						numberOfQuestions={questions.length}
+					<NavigationSidebar
+						questions={questions}
+						currentSectionIndex={currentSectionIndex}
 						currentQuestionIndex={currentQuestionIndex}
 						jumpToQuestion={jumpToQuestion}
 						selectedOptions={selectedOptions}
+						showNavigation={showNavigation}
+						setShowNavigation={setShowNavigation}
 					/>
+					<Button
+						className="fixed bottom-4 right-4 md:hidden"
+						onClick={() => setShowNavigation(true)}
+					>
+						Questions
+					</Button>
 				</div>
-				<Button
-					className="fixed bottom-4 right-4 md:hidden"
-					onClick={() => setShowNavigation(true)}
-				>
-					Questions
-				</Button>
 			</div>
 		</>
 	);
