@@ -103,27 +103,25 @@ export default function Test() {
 					</div>
 				</div>
 				<div
-					className={`fixed inset-0 bg-gray-900 bg-opacity-50 z-50 ${
-						showNavigation ? "block" : "hidden"
-					} md:block md:relative md:bg-transparent md:w-1/4`}
+					className={`fixed md:relative inset-0 md:inset-auto z-50 md:z-auto w-64 p-4 bg-gray-100 shadow-md transition-transform transform ${
+						showNavigation ? "translate-x-0" : "-translate-x-full"
+					} md:translate-x-0`}
 				>
-					<div className="w-full h-full p-4 bg-gray-100 shadow-md">
-						<div className="flex justify-between items-center mb-4">
-							<h2 className="text-lg font-semibold">Questions</h2>
-							<Button
-								className="md:hidden"
-								onClick={() => setShowNavigation(false)}
-							>
-								Close
-							</Button>
-						</div>
-						<QuestionNavigation
-							numberOfQuestions={questions.length}
-							currentQuestionIndex={currentQuestionIndex}
-							jumpToQuestion={jumpToQuestion}
-							selectedOptions={selectedOptions}
-						/>
+					<div className="flex justify-between items-center mb-4">
+						<h2 className="text-lg font-semibold">Questions</h2>
+						<Button
+							className="md:hidden"
+							onClick={() => setShowNavigation(false)}
+						>
+							Close
+						</Button>
 					</div>
+					<QuestionNavigation
+						numberOfQuestions={questions.length}
+						currentQuestionIndex={currentQuestionIndex}
+						jumpToQuestion={jumpToQuestion}
+						selectedOptions={selectedOptions}
+					/>
 				</div>
 				<Button
 					className="fixed bottom-4 right-4 md:hidden"
