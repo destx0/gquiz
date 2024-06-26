@@ -1,41 +1,36 @@
 import React from "react";
 import { Button } from "@/components/ui/button";
 import { Menu } from "lucide-react";
-import {
-	Select,
-	SelectContent,
-	SelectItem,
-	SelectTrigger,
-	SelectValue,
-} from "@/components/ui/select";
+import { Tabs, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import questions from "@/data/questions";
 import useTestStore from "@/store/useTestStore";
 
 const TestHeader = ({ setShowNavigation }) => {
-	const { setCurrentSectionIndex, showNavigation } = useTestStore();
+	const { setCurrentSectionIndex, currentSectionIndex, showNavigation } =
+		useTestStore();
 
 	return (
-		<div className="bg-gray-200 p-4 flex justify-between items-center">
-			<div className="w-full md:w-auto">
-				<Select
+		<div className="bg-gray-200 p-4 flex items-center justify-between">
+			<div className=" overflow-x-auto ">
+				<Tabs
+					defaultValue={currentSectionIndex.toString()}
 					onValueChange={(value) =>
 						setCurrentSectionIndex(parseInt(value))
 					}
-					defaultValue="0"
 				>
-					<SelectTrigger className="w-full md:w-[180px]">
-						<SelectValue placeholder="Select Section" />
-					</SelectTrigger>
-					<SelectContent>
+					<TabsList className="flex gap-2">
 						{questions.map((section, index) => (
-							<SelectItem key={index} value={index.toString()}>
-								{section.section}
-							</SelectItem>
+							<TabsTrigger key={index} value={index.toString()}>
+								{section.section.split(" ")[0]}
+							</TabsTrigger>
 						))}
-					</SelectContent>
-				</Select>
+					</TabsList>
+				</Tabs>
 			</div>
-			<Button onClick={() => setShowNavigation(!showNavigation)}>
+			<Button
+				className="ml-4 flex-shrink-0"
+				onClick={() => setShowNavigation(!showNavigation)}
+			>
 				<Menu />
 			</Button>
 		</div>

@@ -54,11 +54,7 @@ export default function Test() {
 				<link rel="icon" href="/favicon.ico" />
 			</Head>
 			<div className="flex flex-col min-h-screen">
-				<TestHeader
-					switchSection={setCurrentSectionIndex}
-					setShowNavigation={setShowNavigation}
-					showNavigation={showNavigation}
-				/>
+				<TestHeader setShowNavigation={setShowNavigation} />
 				<MainContent
 					currentSectionIndex={currentSectionIndex}
 					currentQuestionIndex={currentQuestionIndex}
