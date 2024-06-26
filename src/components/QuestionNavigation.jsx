@@ -1,6 +1,6 @@
 import React from "react";
 import { Button } from "@/components/ui/button";
-import { Flag } from "lucide-react";
+import { FaStar } from "react-icons/fa";
 
 const QuestionNavigation = ({
 	numberOfQuestions,
@@ -31,12 +31,10 @@ const QuestionNavigation = ({
 					<Button
 						key={index}
 						onClick={() => jumpToQuestion(index)}
-						className={`w-10 h-10 text-xs relative ${bgColor} ${
-							isActive ? "border-2 border-black" : ""
-						}`}
+						className={`w-10 h-10 text-xs relative ${bgColor}`}
 					>
 						{isFlagged && (
-							<Flag className="absolute top-0 right-0 w-4 h-4 text-red-500" />
+							<FaStar className="absolute top-0 right-0 w-4 h-4 text-yellow-500" />
 						)}
 						{index + 1}
 					</Button>
