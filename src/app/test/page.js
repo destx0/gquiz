@@ -5,6 +5,7 @@ import MainQuestion from "@/components/MainQuestion";
 import NavigationSidebar from "@/components/NavigationSidebar";
 import QuestionControls from "@/components/QuestionControls";
 import { Button } from "@/components/ui/button";
+import { Menu } from "lucide-react";
 import {
 	Select,
 	SelectContent,
@@ -25,11 +26,7 @@ export default function Test() {
 	);
 	const [showNavigation, setShowNavigation] = useState(false);
 
-	useEffect(() => {
-		const newVisitedQuestions = [...visitedQuestions];
-		newVisitedQuestions[currentSectionIndex][currentQuestionIndex] = true;
-		setVisitedQuestions(newVisitedQuestions);
-	}, [currentQuestionIndex, currentSectionIndex]);
+
 
 	const handleOptionSelect = (index) => {
 		const newSelectedOptions = [...selectedOptions];
@@ -61,8 +58,11 @@ export default function Test() {
 				<link rel="icon" href="/favicon.ico" />
 			</Head>
 			<div className="flex flex-col min-h-screen">
-				<header className="bg-gray-200 p-4 flex flex-col md:flex-row justify-between items-start md:items-center">
-					<div className="w-full md:w-auto mb-4 md:mb-0">
+				<header className="bg-gray-200 p-4 flex justify-between items-center">
+					<Button onClick={() => setShowNavigation(!showNavigation)}>
+						<Menu />
+					</Button>
+					<div className="w-full md:w-auto">
 						<Select
 							onValueChange={(value) =>
 								switchSection(parseInt(value))
@@ -113,12 +113,6 @@ export default function Test() {
 					setCurrentQuestionIndex={setCurrentQuestionIndex}
 					unmarkQuestion={unmarkQuestion}
 				/>
-				<Button
-					className="fixed bottom-4 right-4 md:hidden"
-					onClick={() => setShowNavigation(true)}
-				>
-					Questions
-				</Button>
 			</div>
 		</>
 	);

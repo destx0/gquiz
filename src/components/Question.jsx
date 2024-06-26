@@ -9,7 +9,7 @@ const Question = ({
 	onSelectOption,
 }) => {
 	return (
-		<div className="p-4 bg-white shadow-md rounded-lg">
+		<div className="p-4  rounded-lg">
 			<h2 className="text-xl font-semibold mb-4">{question}</h2>
 			<RadioGroup
 				value={selectedOptionIndex}
