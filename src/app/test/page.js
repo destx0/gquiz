@@ -75,10 +75,7 @@ export default function Test() {
 				<link rel="icon" href="/favicon.ico" />
 			</Head>
 			<div className="flex flex-col min-h-screen">
-				<header className="bg-gray-200 p-4 flex justify-between items-center">
-					<Button onClick={() => setShowNavigation(!showNavigation)}>
-						<Menu />
-					</Button>
+				<div className="bg-gray-200 p-4 flex justify-between items-center">
 					<div className="w-full md:w-auto">
 						<Select
 							onValueChange={(value) =>
@@ -101,8 +98,11 @@ export default function Test() {
 							</SelectContent>
 						</Select>
 					</div>
-				</header>
-				<div className="flex flex-1 h-full">
+					<Button onClick={() => setShowNavigation(!showNavigation)}>
+						<Menu />
+					</Button>
+				</div>
+				<div className="flex flex-1">
 					<MainQuestion
 						currentSectionIndex={currentSectionIndex}
 						currentQuestionIndex={currentQuestionIndex}
