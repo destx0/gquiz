@@ -8,23 +8,31 @@ const QuestionNavigation = ({
 	selectedOptions,
 }) => {
 	return (
-		<div className="flex flex-wrap gap-2">
+		<div className="grid grid-cols-5 gap-2">
 			{Array.from({ length: numberOfQuestions }).map((_, index) => {
 				const isSelected = selectedOptions[index] !== null;
 				const isVisited =
 					selectedOptions[index] === null &&
 					index <= currentQuestionIndex;
+				const isActive = currentQuestionIndex === index;
+
+				let bgColor = "bg-red-500"; // Not Visited
+				if (isSelected) {
+					bgColor = "bg-green-500"; // Answered
+				} else if (isVisited) {
+					bgColor = "bg-yellow-500"; // Visited but not answered
+				}
+				if (isActive) {
+					bgColor = "bg-blue-500"; // Active
+				}
+
 				return (
 					<Button
 						key={index}
 						onClick={() => jumpToQuestion(index)}
-						variant={
-							currentQuestionIndex === index ? "solid" : "outline"
-						}
-						className={`w-10 h-10 text-xs 
-              ${isSelected ? "bg-green-500" : ""}
-              ${isVisited ? "bg-yellow-500" : ""}
-              ${!isSelected && !isVisited ? "bg-red-500" : ""}`}
+						className={`w-10 h-10 text-xs ${bgColor} ${
+							isActive ? "border-2 border-black" : ""
+						}`}
 					>
 						{index + 1}
 					</Button>
