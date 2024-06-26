@@ -26,7 +26,18 @@ export default function Test() {
 	);
 	const [showNavigation, setShowNavigation] = useState(false);
 
-
+	useEffect(() => {
+		const handleResize = () => {
+			if (window.innerWidth >= 768) {
+				setShowNavigation(true);
+			} else {
+				setShowNavigation(false);
+			}
+		};
+		window.addEventListener("resize", handleResize);
+		handleResize(); // Set the initial state based on the current window size
+		return () => window.removeEventListener("resize", handleResize);
+	}, []);
 
 	const handleOptionSelect = (index) => {
 		const newSelectedOptions = [...selectedOptions];
