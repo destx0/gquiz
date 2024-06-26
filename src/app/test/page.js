@@ -2,6 +2,7 @@
 import { useState } from "react";
 import Head from "next/head";
 import Question from "@/components/Question";
+import QuestionNavigation from "@/components/QuestionNavigation";
 import { Button } from "@/components/ui/button";
 
 const questions = [
@@ -29,22 +30,14 @@ export default function Test() {
 		Array(questions.length).fill(null)
 	);
 
-	const nextQuestion = () => {
-		if (currentQuestionIndex < questions.length - 1) {
-			setCurrentQuestionIndex(currentQuestionIndex + 1);
-		}
-	};
-
-	const prevQuestion = () => {
-		if (currentQuestionIndex > 0) {
-			setCurrentQuestionIndex(currentQuestionIndex - 1);
-		}
-	};
-
-	const handleOptionSelect = (option) => {
+	const handleOptionSelect = (index) => {
 		const newSelectedOptions = [...selectedOptions];
-		newSelectedOptions[currentQuestionIndex] = option;
+		newSelectedOptions[currentQuestionIndex] = index;
 		setSelectedOptions(newSelectedOptions);
+	};
+
+	const jumpToQuestion = (index) => {
+		setCurrentQuestionIndex(index);
 	};
 
 	return (
@@ -56,25 +49,50 @@ export default function Test() {
 			</Head>
 			<div className="flex flex-col items-center justify-center min-h-screen py-2 bg-gray-100">
 				<h1 className="text-4xl font-bold mb-4">Test Page</h1>
-				<Question
-					question={questions[currentQuestionIndex].question}
-					options={questions[currentQuestionIndex].options}
-					selectedOption={selectedOptions[currentQuestionIndex]}
-					onSelectOption={handleOptionSelect}
-				/>
-				<div className="mt-4 flex space-x-4">
-					<Button
-						onClick={prevQuestion}
-						disabled={currentQuestionIndex === 0}
-					>
-						Previous
-					</Button>
-					<Button
-						onClick={nextQuestion}
-						disabled={currentQuestionIndex === questions.length - 1}
-					>
-						Next
-					</Button>
+				<div className="flex w-full max-w-4xl">
+					<div className="flex-1 p-4">
+						<Question
+							question={questions[currentQuestionIndex].question}
+							options={questions[currentQuestionIndex].options}
+							selectedOptionIndex={
+								selectedOptions[currentQuestionIndex]
+							}
+							onSelectOption={handleOptionSelect}
+						/>
+						<div className="mt-4 flex space-x-4">
+							<Button
+								onClick={() =>
+									setCurrentQuestionIndex(
+										currentQuestionIndex - 1
+									)
+								}
+								disabled={currentQuestionIndex === 0}
+							>
+								Previous
+							</Button>
+							<Button
+								onClick={() =>
+									setCurrentQuestionIndex(
+										currentQuestionIndex + 1
+									)
+								}
+								disabled={
+									currentQuestionIndex ===
+									questions.length - 1
+								}
+							>
+								Next
+							</Button>
+						</div>
+					</div>
+					<div className="w-64 p-4 bg-white shadow-md rounded-lg">
+						<QuestionNavigation
+							numberOfQuestions={questions.length}
+							currentQuestionIndex={currentQuestionIndex}
+							jumpToQuestion={jumpToQuestion}
+							selectedOptions={selectedOptions}
+						/>
+					</div>
 				</div>
 			</div>
 		</>
