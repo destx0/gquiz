@@ -10,13 +10,14 @@ const TestHeader = ({ setShowNavigation }) => {
 		useTestStore();
 
 	return (
-		<div className="bg-gray-200 p-4 flex items-center justify-between">
+		<div className="shadow-md p-4 flex items-center justify-between">
 			<div className="overflow-x-auto">
 				<Tabs
 					defaultValue={currentSectionIndex.toString()}
 					onValueChange={(value) =>
 						setCurrentSectionIndex(parseInt(value))
 					}
+					className=""
 				>
 					<TabsList className="flex px-2 gap-2">
 						{questions.map((section, index) => (
@@ -28,7 +29,7 @@ const TestHeader = ({ setShowNavigation }) => {
 				</Tabs>
 			</div>
 			<Button
-				className="ml-4 flex-shrink-0"
+				className="ml-4 flex-shrink-0 shadow-md"
 				onClick={() => setShowNavigation(!showNavigation)}
 			>
 				{showNavigation ? <PanelRightClose /> : <PanelRightOpen />}
