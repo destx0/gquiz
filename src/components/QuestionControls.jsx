@@ -1,5 +1,6 @@
 import React from "react";
 import { Button } from "@/components/ui/button";
+import { FaArrowLeft, FaArrowRight, FaTimesCircle } from "react-icons/fa";
 
 const QuestionControls = ({
 	currentQuestionIndex,
@@ -11,15 +12,17 @@ const QuestionControls = ({
 	const currentSection = questions[currentSectionIndex];
 
 	return (
-		<div className="bg-gray-200 p-4 flex justify-between items-center fixed bottom-0 w-full">
-			<div className="flex space-x-4">
+		<div className="bg-gray-100 p-4 fixed bottom-0 w-full">
+			<div className="space-x-4 flex flex-start justify-start">
 				<Button
 					onClick={() =>
 						setCurrentQuestionIndex(currentQuestionIndex - 1)
 					}
 					disabled={currentQuestionIndex === 0}
+					className="flex items-center space-x-2"
 				>
-					Previous
+					<FaArrowLeft />
+					<span>Previous</span>
 				</Button>
 				<Button
 					onClick={() =>
@@ -29,8 +32,10 @@ const QuestionControls = ({
 						currentQuestionIndex ===
 						currentSection.questions.length - 1
 					}
+					className="flex items-center space-x-2"
 				>
-					Next
+					<span>Next</span>
+					<FaArrowRight />
 				</Button>
 				<Button
 					onClick={() =>
@@ -40,8 +45,10 @@ const QuestionControls = ({
 						)
 					}
 					variant="outline"
+					className="flex items-center space-x-2"
 				>
-					Unmark
+					<FaTimesCircle />
+					<span>Unmark</span>
 				</Button>
 			</div>
 		</div>
