@@ -32,7 +32,9 @@ const QuestionNavigation = ({
 				} else if (isVisited) {
 					bgColor = "bg-yellow-500"; // Visited but not answered
 				}
-
+				if (isFlagged) {
+					bgColor = "bg-purple-500"; // Flagged
+				}
 				return (
 					<Button
 						key={index}
