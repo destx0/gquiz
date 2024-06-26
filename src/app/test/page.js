@@ -1,18 +1,9 @@
 "use client";
 import { useState, useEffect } from "react";
 import Head from "next/head";
-import MainQuestion from "@/components/MainQuestion";
-import NavigationSidebar from "@/components/NavigationSidebar";
+import TestHeader from "@/components/TestHeader";
+import MainContent from "@/components/MainContent";
 import QuestionControls from "@/components/QuestionControls";
-import { Button } from "@/components/ui/button";
-import { Menu } from "lucide-react";
-import {
-	Select,
-	SelectContent,
-	SelectItem,
-	SelectTrigger,
-	SelectValue,
-} from "@/components/ui/select";
 import questions from "@/data/questions";
 
 export default function Test() {
@@ -85,55 +76,22 @@ export default function Test() {
 				<link rel="icon" href="/favicon.ico" />
 			</Head>
 			<div className="flex flex-col min-h-screen">
-				<div className="bg-gray-200 p-4 flex justify-between items-center">
-					<div className="w-full md:w-auto">
-						<Select
-							onValueChange={(value) =>
-								switchSection(parseInt(value))
-							}
-							defaultValue="0"
-						>
-							<SelectTrigger className="w-full md:w-[180px]">
-								<SelectValue placeholder="Select Section" />
-							</SelectTrigger>
-							<SelectContent>
-								{questions.map((section, index) => (
-									<SelectItem
-										key={index}
-										value={index.toString()}
-									>
-										{section.section}
-									</SelectItem>
-								))}
-							</SelectContent>
-						</Select>
-					</div>
-					<Button onClick={() => setShowNavigation(!showNavigation)}>
-						<Menu />
-					</Button>
-				</div>
-				<div className="flex flex-1">
-					<MainQuestion
-						currentSectionIndex={currentSectionIndex}
-						currentQuestionIndex={currentQuestionIndex}
-						questions={questions}
-						selectedOptions={selectedOptions}
-						handleOptionSelect={handleOptionSelect}
-					/>
-					<NavigationSidebar
-						currentSectionIndex={currentSectionIndex}
-						currentQuestionIndex={currentQuestionIndex}
-						jumpToQuestion={jumpToQuestion}
-						selectedOptions={selectedOptions[currentSectionIndex]}
-						visitedQuestions={visitedQuestions[currentSectionIndex]}
-						flaggedQuestions={flaggedQuestions[currentSectionIndex]}
-						showNavigation={showNavigation}
-						setShowNavigation={setShowNavigation}
-						numberOfQuestions={
-							questions[currentSectionIndex].questions.length
-						}
-					/>
-				</div>
+				<TestHeader
+					switchSection={switchSection}
+					setShowNavigation={setShowNavigation}
+					showNavigation={showNavigation}
+				/>
+				<MainContent
+					currentSectionIndex={currentSectionIndex}
+					currentQuestionIndex={currentQuestionIndex}
+					selectedOptions={selectedOptions}
+					handleOptionSelect={handleOptionSelect}
+					jumpToQuestion={jumpToQuestion}
+					visitedQuestions={visitedQuestions}
+					flaggedQuestions={flaggedQuestions}
+					showNavigation={showNavigation}
+					setShowNavigation={setShowNavigation}
+				/>
 				<QuestionControls
 					currentQuestionIndex={currentQuestionIndex}
 					currentSectionIndex={currentSectionIndex}
