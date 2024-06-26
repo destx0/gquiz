@@ -8,6 +8,7 @@ const NavigationSidebar = ({
 	jumpToQuestion,
 	selectedOptions,
 	visitedQuestions,
+	flaggedQuestions,
 	showNavigation,
 	setShowNavigation,
 	numberOfQuestions,
@@ -36,6 +37,7 @@ const NavigationSidebar = ({
 					}
 					selectedOptions={selectedOptions}
 					visitedQuestions={visitedQuestions}
+					flaggedQuestions={flaggedQuestions}
 				/>
 			</div>
 		</div>
