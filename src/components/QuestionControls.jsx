@@ -1,6 +1,11 @@
 import React from "react";
 import { Button } from "@/components/ui/button";
-import { FaArrowLeft, FaArrowRight, FaTimesCircle } from "react-icons/fa";
+import {
+	FaArrowLeft,
+	FaArrowRight,
+	FaTimesCircle,
+	FaRegFlag,
+} from "react-icons/fa";
 
 const QuestionControls = ({
 	currentQuestionIndex,
@@ -8,12 +13,13 @@ const QuestionControls = ({
 	questions,
 	setCurrentQuestionIndex,
 	unmarkQuestion,
+	markForReview,
 }) => {
 	const currentSection = questions[currentSectionIndex];
 
 	return (
 		<div className="bg-gray-100 p-4 fixed bottom-0 w-full">
-			<div className="space-x-4 flex flex-start justify-start">
+			<div className="space-x-4 flex justify-start">
 				<Button
 					onClick={() =>
 						setCurrentQuestionIndex(currentQuestionIndex - 1)
@@ -49,6 +55,16 @@ const QuestionControls = ({
 				>
 					<FaTimesCircle />
 					<span>Unmark</span>
+				</Button>
+				<Button
+					onClick={() =>
+						markForReview(currentSectionIndex, currentQuestionIndex)
+					}
+					variant="outline"
+					className="flex items-center space-x-2"
+				>
+					<FaRegFlag />
+					<span>Mark for Review</span>
 				</Button>
 			</div>
 		</div>

@@ -24,6 +24,9 @@ export default function Test() {
 	const [visitedQuestions, setVisitedQuestions] = useState(
 		questions.map((section) => Array(section.questions.length).fill(false))
 	);
+	const [flaggedQuestions, setFlaggedQuestions] = useState(
+		questions.map((section) => Array(section.questions.length).fill(false))
+	);
 	const [showNavigation, setShowNavigation] = useState(false);
 
 	useEffect(() => {
@@ -55,6 +58,13 @@ export default function Test() {
 		const newSelectedOptions = [...selectedOptions];
 		newSelectedOptions[sectionIndex][questionIndex] = null;
 		setSelectedOptions(newSelectedOptions);
+	};
+
+	const markForReview = (sectionIndex, questionIndex) => {
+		const newFlaggedQuestions = [...flaggedQuestions];
+		newFlaggedQuestions[sectionIndex][questionIndex] =
+			!newFlaggedQuestions[sectionIndex][questionIndex];
+		setFlaggedQuestions(newFlaggedQuestions);
 	};
 
 	const jumpToQuestion = (sectionIndex, questionIndex) => {
@@ -116,6 +126,7 @@ export default function Test() {
 						jumpToQuestion={jumpToQuestion}
 						selectedOptions={selectedOptions[currentSectionIndex]}
 						visitedQuestions={visitedQuestions[currentSectionIndex]}
+						flaggedQuestions={flaggedQuestions[currentSectionIndex]}
 						showNavigation={showNavigation}
 						setShowNavigation={setShowNavigation}
 						numberOfQuestions={
@@ -129,6 +140,7 @@ export default function Test() {
 					questions={questions}
 					setCurrentQuestionIndex={setCurrentQuestionIndex}
 					unmarkQuestion={unmarkQuestion}
+					markForReview={markForReview}
 				/>
 			</div>
 		</>
