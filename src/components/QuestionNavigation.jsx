@@ -19,9 +19,7 @@ const QuestionNavigation = ({
 				const isActive = currentQuestionIndex === index;
 
 				let bgColor = "bg-gray-500"; // Not Visited
-				if (isActive) {
-					bgColor = "bg-blue-500"; // Active
-				} else if (isSelected && isFlagged) {
+				if (isSelected && isFlagged) {
 					bgColor = "bg-purple-500"; // Marked and Answered
 				} else if (isSelected) {
 					bgColor = "bg-green-500"; // Answered
@@ -35,7 +33,9 @@ const QuestionNavigation = ({
 					<Button
 						key={index}
 						onClick={() => jumpToQuestion(index)}
-						className={`w-10 h-10 text-xs relative ${bgColor} shadow-lg`}
+						className={`w-10 h-10 text-xs relative ${bgColor} ${
+							isActive ? "border-2 border-black" : "shadow-md"
+						}`}
 					>
 						{isSelected && isFlagged && (
 							<FaCheck className="absolute top-0 right-0 w-4 h-4 text-green-500" />
