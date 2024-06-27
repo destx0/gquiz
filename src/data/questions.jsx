@@ -130,49 +130,6 @@ const questions = [
 			},
 		],
 	},
-	{
-		section: "Geo",
-		questions: [
-			{
-				question: "What is the largest continent?",
-				options: ["Asia", "Africa", "North America", "Europe"],
-			},
-			{
-				question: "Which country has the most population?",
-				options: ["China", "India", "USA", "Indonesia"],
-			},
-			{
-				question: "Which ocean is the largest?",
-				options: [
-					"Pacific Ocean",
-					"Atlantic Ocean",
-					"Indian Ocean",
-					"Arctic Ocean",
-				],
-			},
-			{
-				question: "What is the longest river in the world?",
-				options: ["Nile", "Amazon", "Yangtze", "Mississippi"],
-			},
-			{
-				question: "Which country has the largest land area?",
-				options: ["Russia", "Canada", "USA", "China"],
-			},
-			{
-				question: "What is the capital of Australia?",
-				options: ["Canberra", "Sydney", "Melbourne", "Brisbane"],
-			},
-			{
-				question:
-					"Which country is known as the Land of the Rising Sun?",
-				options: ["Japan", "China", "South Korea", "Thailand"],
-			},
-			{
-				question: "What is the smallest country in the world?",
-				options: ["Vatican City", "Monaco", "Nauru", "San Marino"],
-			},
-		],
-	},
 ];
 
 export default questions;
