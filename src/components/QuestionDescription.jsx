@@ -2,7 +2,13 @@ import React from "react";
 import { Button } from "@/components/ui/button";
 import { FaCheck } from "react-icons/fa";
 
-const QuestionDescription = () => {
+const QuestionDescription = ({
+	answeredCount,
+	markedCount,
+	notVisitedCount,
+	notAnsweredCount,
+	markedAndAnsweredCount,
+}) => {
 	return (
 		<div className="p-2">
 			<div className="mb-2 grid grid-cols-2 gap-2 text-xs">
@@ -11,7 +17,7 @@ const QuestionDescription = () => {
 						className="w-8 h-8 text-xs bg-green-500 text-white cursor-default relative"
 						onClick={() => {}}
 					>
-						1
+						{answeredCount}
 					</Button>
 					<span className="ml-1 text-gray-700">Answered</span>
 				</div>
@@ -20,7 +26,7 @@ const QuestionDescription = () => {
 						className="w-8 h-8 text-xs bg-purple-500 text-white cursor-default relative"
 						onClick={() => {}}
 					>
-						1
+						{markedCount}
 					</Button>
 					<span className="ml-1 text-gray-700">Marked</span>
 				</div>
@@ -29,7 +35,7 @@ const QuestionDescription = () => {
 						className="w-8 h-8 text-xs bg-secondary bg-opacity-50 text-white cursor-default relative"
 						onClick={() => {}}
 					>
-						1
+						{notVisitedCount}
 					</Button>
 					<span className="ml-1 text-gray-700">Not Visited</span>
 				</div>
@@ -38,7 +44,7 @@ const QuestionDescription = () => {
 						className="w-8 h-8 text-xs bg-red-500 text-white cursor-default relative"
 						onClick={() => {}}
 					>
-						1
+						{notAnsweredCount}
 					</Button>
 					<span className="ml-1 text-gray-700">Not Answered</span>
 				</div>
@@ -47,7 +53,7 @@ const QuestionDescription = () => {
 						className="w-8 h-8 text-xs bg-purple-500 text-white cursor-default relative"
 						onClick={() => {}}
 					>
-						1
+						{markedAndAnsweredCount}
 						<FaCheck className="absolute top-0 right-0 transform translate-x-1/2 -translate-y-1/2 w-4 h-4 text-green-500" />
 					</Button>
 					<span className="ml-1 text-gray-700">
