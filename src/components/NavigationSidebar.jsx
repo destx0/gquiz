@@ -1,6 +1,7 @@
 import React from "react";
 import { Button } from "@/components/ui/button";
 import QuestionNavigation from "@/components/QuestionNavigation";
+import QuestionDescription from "@/components/QuestionDescription";
 
 const NavigationSidebar = ({
 	currentSectionIndex,
@@ -29,6 +30,7 @@ const NavigationSidebar = ({
 				</Button>
 			</div>
 			<div className="p-4">
+				<QuestionDescription />
 				<QuestionNavigation
 					numberOfQuestions={numberOfQuestions}
 					currentQuestionIndex={currentQuestionIndex}
