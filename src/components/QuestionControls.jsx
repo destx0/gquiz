@@ -7,7 +7,7 @@ const QuestionControls = ({
 	currentSectionIndex,
 	questions,
 	setCurrentQuestionIndex,
-	clearResponse,
+	unmarkQuestion,
 	markForReview,
 }) => {
 	const currentSection = questions[currentSectionIndex];
@@ -30,7 +30,10 @@ const QuestionControls = ({
 				</Button>
 				<Button
 					onClick={() =>
-						clearResponse(currentSectionIndex, currentQuestionIndex)
+						unmarkQuestion(
+							currentSectionIndex,
+							currentQuestionIndex
+						)
 					}
 					variant="outline"
 					className="flex items-center space-x-2"
