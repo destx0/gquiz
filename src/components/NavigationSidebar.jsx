@@ -26,12 +26,6 @@ const NavigationSidebar = ({
 				<h2 className="text-lg font-semibold">
 					Section: {questions[currentSectionIndex].section}
 				</h2>
-				<Button
-					className="md:hidden"
-					onClick={() => setShowNavigation(false)}
-				>
-					Close
-				</Button>
 			</div>
 			<div className="p-2">
 				<Separator />
