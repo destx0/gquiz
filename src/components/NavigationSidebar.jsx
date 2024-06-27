@@ -19,19 +19,19 @@ const NavigationSidebar = ({
 	if (!showNavigation) return null;
 
 	return (
-		<div className={`fixed right-0 h-full  w-64 bg-gray-100 shadow-lg `}>
-			<div className="flex justify-between items-center p-4 bg-gray-200 shadow-2xl">
-				<h2 className="text-lg font-semibold ">
+		<div className={`fixed right-0 h-full w-64  shadow-lg`}>
+			<div className="flex justify-between items-center p-4 bg-muted shadow-2xl">
+				<h2 className="text-lg font-semibold text-primary">
 					Section: {questions[currentSectionIndex].section}
 				</h2>
 			</div>
-			<div className="">
+			<div>
 				<Separator />
-				<div className="bg-gray-50 ">
+				<div className="bg-gray-50">
 					<QuestionDescription />
 				</div>
 				<Separator />
-				<div className="shadow-lg">
+				<div className="">
 					<QuestionNavigation
 						numberOfQuestions={numberOfQuestions}
 						currentQuestionIndex={currentQuestionIndex}

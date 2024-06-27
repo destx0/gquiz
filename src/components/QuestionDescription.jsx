@@ -26,7 +26,7 @@ const QuestionDescription = () => {
 				</div>
 				<div className="flex items-center mb-1">
 					<Button
-						className="w-8 h-8 text-xs bg-gray-500 text-white cursor-default relative"
+						className="w-8 h-8 text-xs bg-secondary bg-opacity-50 text-white cursor-default relative"
 						onClick={() => {}}
 					>
 						1

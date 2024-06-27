@@ -19,7 +19,7 @@ const QuestionNavigation = ({
 					const isFlagged = flaggedQuestions[index];
 					const isActive = currentQuestionIndex === index;
 
-					let bgColor = "bg-gray-500"; // Not Visited
+					let bgColor = "bg-secondary bg-opacity-50"; // Not Visited with transparency
 					if (isSelected && isFlagged) {
 						bgColor = "bg-purple-500"; // Marked and Answered
 					} else if (isSelected) {

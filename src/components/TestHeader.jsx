@@ -10,9 +10,13 @@ const TestHeader = ({ setShowNavigation }) => {
 		useTestStore();
 
 	return (
-		<div className="shadow-md p-4 flex items-center justify-between bg-gradient-to-b from-gray-600 via-gray-400 to-gray-200 ">
+		<div className="shadow-md p-4 flex items-center justify-between bg-gradient-to-r from-[#354f52] via-[#84a98c] to-[#52796f]">
 			<div className="flex items-center overflow-x-auto">
-				<img src="/infinity-icon.png" alt="Logo" className="h-8 mr-4" />
+				<img
+					src="/infinity-icon.png"
+					alt="Logo"
+					className="h-8 mr-4 object-cover object-center"
+				/>
 				<Tabs
 					defaultValue={currentSectionIndex.toString()}
 					onValueChange={(value) =>
