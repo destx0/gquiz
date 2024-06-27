@@ -11,27 +11,32 @@ const TestHeader = ({ setShowNavigation }) => {
 
 	return (
 		<div className="shadow-md p-4 flex items-center justify-between bg-gradient-to-r from-[#354f52] via-[#84a98c] to-[#52796f]">
-			<div className="flex items-center overflow-x-auto">
+			<div className="flex items-center">
 				<img
 					src="/infinity-icon.png"
 					alt="Logo"
 					className="h-8 mr-4 object-cover object-center"
 				/>
-				<Tabs
-					defaultValue={currentSectionIndex.toString()}
-					onValueChange={(value) =>
-						setCurrentSectionIndex(parseInt(value))
-					}
-					className=""
-				>
-					<TabsList className="flex px-2 gap-2">
-						{questions.map((section, index) => (
-							<TabsTrigger key={index} value={index.toString()}>
-								{section.section.split(" ")[0]}
-							</TabsTrigger>
-						))}
-					</TabsList>
-				</Tabs>
+				<div className="flex  overflow-x-auto">
+					<Tabs
+						defaultValue={currentSectionIndex.toString()}
+						onValueChange={(value) =>
+							setCurrentSectionIndex(parseInt(value))
+						}
+						className=""
+					>
+						<TabsList className="flex px-2 gap-2">
+							{questions.map((section, index) => (
+								<TabsTrigger
+									key={index}
+									value={index.toString()}
+								>
+									{section.section.split(" ")[0]}
+								</TabsTrigger>
+							))}
+						</TabsList>
+					</Tabs>
+				</div>
 			</div>
 			<Button
 				className="ml-4 flex-shrink-0 shadow-md"
