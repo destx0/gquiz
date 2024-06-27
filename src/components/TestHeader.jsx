@@ -10,7 +10,7 @@ const TestHeader = ({ setShowNavigation }) => {
 		useTestStore();
 
 	return (
-		<div className="shadow-md p-4 flex items-center justify-between bg-gradient-to-br from-gray-400 via-gray-500 to-gray-600">
+		<div className="shadow-md p-4 flex items-center justify-between bg-gradient-to-b from-gray-600 via-gray-400 to-gray-200 ">
 			<div className="flex items-center overflow-x-auto">
 				<img src="/infinity-icon.png" alt="Logo" className="h-8 mr-4" />
 				<Tabs
