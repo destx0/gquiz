@@ -1,6 +1,6 @@
 import React from "react";
 import { Button } from "@/components/ui/button";
-import { FaStar } from "react-icons/fa";
+import { FaCheck } from "react-icons/fa";
 
 const QuestionNavigation = ({
 	numberOfQuestions,
@@ -18,23 +18,27 @@ const QuestionNavigation = ({
 				const isFlagged = flaggedQuestions[index];
 				const isActive = currentQuestionIndex === index;
 
-				let bgColor = "bg-red-500"; // Not Visited
+				let bgColor = "bg-gray-500"; // Not Visited
 				if (isActive) {
 					bgColor = "bg-blue-500"; // Active
+				} else if (isSelected && isFlagged) {
+					bgColor = "bg-purple-500"; // Marked and Answered
 				} else if (isSelected) {
 					bgColor = "bg-green-500"; // Answered
+				} else if (isFlagged) {
+					bgColor = "bg-purple-500"; // Marked
 				} else if (isVisited) {
-					bgColor = "bg-yellow-500"; // Visited but not answered
+					bgColor = "bg-red-500"; // Visited but not answered
 				}
 
 				return (
 					<Button
 						key={index}
 						onClick={() => jumpToQuestion(index)}
-						className={`w-10 h-10 text-xs relative ${bgColor}`}
+						className={`w-10 h-10 text-xs relative ${bgColor} shadow-lg`}
 					>
-						{isFlagged && (
-							<FaStar className="absolute top-0 right-0 w-4 h-4 text-yellow-500" />
+						{isSelected && isFlagged && (
+							<FaCheck className="absolute top-0 right-0 w-4 h-4 text-green-500" />
 						)}
 						{index + 1}
 					</Button>
