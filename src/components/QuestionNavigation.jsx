@@ -35,7 +35,9 @@ const QuestionNavigation = ({
 							key={index}
 							onClick={() => jumpToQuestion(index)}
 							className={`w-10 h-10 text-xxs text-white relative ${bgColor} ${
-								isActive ? "border-4 border-black" : "shadow-md"
+								isActive
+									? "border-2 border-gray-600"
+									: "shadow-md"
 							}`}
 						>
 							{isSelected && isFlagged && (
