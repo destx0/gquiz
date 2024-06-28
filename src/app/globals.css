@@ -13,7 +13,7 @@
     --popover: 210 10% 92%;
     --popover-foreground: 210 10% 15%;
 
-    --primary: 165 22% 30%; /* Matches #52796f */
+    --primary: 163 100% 7%; /* Matches #52796f */
     --primary-foreground: 0 0% 98%; /* Light color for contrast */
 
     --secondary: 165 22% 45%; /* Slightly lighter than primary */

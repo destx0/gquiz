@@ -57,7 +57,7 @@ const QuestionControls = ({
 					<FaArrowRight />
 				</Button>
 			</div>
-			<Button className="flex items-center space-x-2 bg-green-900 text-white shadow-lg">
+			<Button className="flex items-center space-x-2 bg-primary text-white shadow-lg">
 				<FaPaperPlane />
 				<span>Submit Test</span>
 			</Button>
