@@ -33,52 +33,54 @@ const SSCHeader = () => {
 					alt="Logo"
 					className="h-8 mr-4 object-cover object-center"
 				/>
-				<span className="text-white text-lg font-bold">
+				<span className="text-white text-2xl font-bold">
 					Infinity Tests
 				</span>
 			</div>
-			<Select onValueChange={handleSelectChange} defaultValue="ssc">
-				<SelectTrigger className="w-[180px] ml-4">
-					<SelectValue placeholder="Select a section" />
-				</SelectTrigger>
-				<SelectContent>
-					<SelectGroup>
-						<SelectLabel>Sections</SelectLabel>
-						<SelectItem value="ssc">SSC</SelectItem>
-						<SelectItem value="upsc">
-							UPSC
-							<Badge variant="outline" className="ml-2">
-								Coming Soon
-							</Badge>
-						</SelectItem>
-						<SelectItem value="ibps">
-							IBPS
-							<Badge variant="outline" className="ml-2">
-								Coming Soon
-							</Badge>
-						</SelectItem>
-						<SelectItem value="railway">
-							Railway
-							<Badge variant="outline" className="ml-2">
-								Coming Soon
-							</Badge>
-						</SelectItem>
-						<SelectItem value="defense">
-							Defense
-							<Badge variant="outline" className="ml-2">
-								Coming Soon
-							</Badge>
-						</SelectItem>
-					</SelectGroup>
-				</SelectContent>
-			</Select>
-			<Avatar className="ml-4">
-				<AvatarImage
-					src="https://github.com/shadcn.png"
-					alt="User Avatar"
-				/>
-				<AvatarFallback>CN</AvatarFallback>
-			</Avatar>
+			<div className="flex">
+				<Select onValueChange={handleSelectChange} defaultValue="ssc">
+					<SelectTrigger className="w-[180px] ml-4">
+						<SelectValue placeholder="Select a section" />
+					</SelectTrigger>
+					<SelectContent>
+						<SelectGroup>
+							<SelectLabel>Sections</SelectLabel>
+							<SelectItem value="ssc">SSC</SelectItem>
+							<SelectItem value="upsc">
+								UPSC
+								<Badge variant="outline" className="ml-2">
+									Coming Soon
+								</Badge>
+							</SelectItem>
+							<SelectItem value="ibps">
+								IBPS
+								<Badge variant="outline" className="ml-2">
+									Coming Soon
+								</Badge>
+							</SelectItem>
+							<SelectItem value="railway">
+								Railway
+								<Badge variant="outline" className="ml-2">
+									Coming Soon
+								</Badge>
+							</SelectItem>
+							<SelectItem value="defense">
+								Defense
+								<Badge variant="outline" className="ml-2">
+									Coming Soon
+								</Badge>
+							</SelectItem>
+						</SelectGroup>
+					</SelectContent>
+				</Select>
+				<Avatar className="ml-4">
+					<AvatarImage
+						src="https://github.com/shadcn.png"
+						alt="User Avatar"
+					/>
+					<AvatarFallback>CN</AvatarFallback>
+				</Avatar>
+			</div>
 		</div>
 	);
 };
