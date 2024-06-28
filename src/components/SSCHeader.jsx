@@ -26,7 +26,7 @@ const SSCHeader = () => {
 	};
 
 	return (
-		<div className="shadow-md p-4 flex items-center justify-between bg-gradient-to-r from-[#354f52] via-[#84a98c] to-[#52796f]">
+		<div className="shadow-md p-4 flex items-center justify-between bg-gradient-to-r from-[#002219] via-[#0A0F0E] to-[#002219]">
 			<div className="flex items-center">
 				<img
 					src="/infinity-icon.png"
