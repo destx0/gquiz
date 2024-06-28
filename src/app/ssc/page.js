@@ -7,20 +7,40 @@ const dailyQuizzes = [
 		testName: "Affairs for ALL SSC EXAMS: Daily Quiz",
 		type: "Daily Quiz",
 		questions: 15,
+		marks: 15,
 		time: "3 mins",
 		languages: ["English", "Hindi"],
-		status: "not started", // or "completed"
+		status: "not started",
+	},
+	{
+		testName: "General Knowledge Quiz",
+		type: "Daily Quiz",
+		questions: 20,
+		marks: 20,
+		time: "5 mins",
+		languages: ["English"],
+		status: "completed",
 	},
 ];
 
 const mockTests = [
 	{
-		testName: "Another Test",
+		testName: "Full-Length Mock Test 1",
 		type: "Mock Test",
-		questions: 30,
-		time: "90 mins",
+		questions: 100,
+		marks: 100,
+		time: "120 mins",
 		languages: ["Hindi", "English"],
-		status: "completed", // or "not started"
+		status: "completed",
+	},
+	{
+		testName: "Full-Length Mock Test 2",
+		type: "Mock Test",
+		questions: 100,
+		marks: 100,
+		time: "120 mins",
+		languages: ["Hindi"],
+		status: "not started",
 	},
 ];
 
