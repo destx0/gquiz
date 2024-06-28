@@ -1,0 +1,43 @@
+{
+    "types": [
+        {
+            "typeName": "PYQ",
+            "tests": [
+                {
+                    "testName": "SSC PYQ Test 1",
+                    "testId": "ssc_pyq_test_1"
+                },
+                {
+                    "testName": "SSC PYQ Test 2",
+                    "testId": "ssc_pyq_test_2"
+                }
+            ]
+        },
+        {
+            "typeName": "Section-wise",
+            "tests": [
+                {
+                    "testName": "SSC Section Test 1",
+                    "testId": "ssc_section_test_1"
+                },
+                {
+                    "testName": "SSC Section Test 2",
+                    "testId": "ssc_section_test_2"
+                }
+            ]
+        },
+        {
+            "typeName": "Topic-wise",
+            "tests": [
+                {
+                    "testName": "SSC Topic Test 1",
+                    "testId": "ssc_topic_test_1"
+                },
+                {
+                    "testName": "SSC Topic Test 2",
+                    "testId": "ssc_topic_test_2"
+                }
+            ]
+        }
+    ]
+}
