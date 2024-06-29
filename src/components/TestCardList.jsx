@@ -21,7 +21,7 @@ import {
 
 const TestCardList = ({ tests, sectionTitle }) => {
 	return (
-		<Card>
+		<Card className="max-w-screen-md ">
 			<CardHeader>
 				<CardTitle>{sectionTitle}</CardTitle>
 				<CardDescription className="text-sm text-gray-600">
@@ -71,18 +71,24 @@ const TestCardList = ({ tests, sectionTitle }) => {
 									</Button>
 								)}
 							</div>
-							<div className="flex gap-4 ">
+							<div className="flex gap-4">
 								<div className="flex items-center">
 									<CheckSquare size={16} className="mr-1" />
-									<Label>{test.questions} Questions</Label>
+									<span className="text-gray-700 text-sm">
+										{test.questions} Questions
+									</span>
 								</div>
 								<div className="flex items-center">
 									<Clock size={16} className="mr-1" />
-									<Label>{test.time} </Label>
+									<span className="text-gray-700 text-sm">
+										{test.time}
+									</span>
 								</div>
-								<div className="flex items-center ">
+								<div className="flex items-center">
 									<HelpCircle size={16} className="mr-1" />
-									<Label>{test.questions} Questions</Label>
+									<span className="text-gray-700 text-sm">
+										{test.questions} Questions
+									</span>
 								</div>
 							</div>
 						</div>
