@@ -19,15 +19,15 @@ const QuestionNavigation = ({
 					const isFlagged = flaggedQuestions[index];
 					const isActive = currentQuestionIndex === index;
 
-					let bgColor = "bg-secondary bg-opacity-50"; // Not Visited with transparency
+					let bgColor = "bg-muted"; // Not Visited with transparency
 					if (isSelected && isFlagged) {
-						bgColor = "bg-purple-500"; // Marked and Answered
+						bgColor = "bg-purple-700"; // Marked and Answered
 					} else if (isSelected) {
-						bgColor = "bg-green-500"; // Answered
+						bgColor = "bg-green-700"; // Answered
 					} else if (isFlagged) {
-						bgColor = "bg-purple-500"; // Marked
+						bgColor = "bg-purple-700"; // Marked
 					} else if (isVisited) {
-						bgColor = "bg-red-500"; // Visited but not answered
+						bgColor = "bg-red-700"; // Visited but not answered
 					}
 
 					return (
@@ -41,7 +41,7 @@ const QuestionNavigation = ({
 							}`}
 						>
 							{isSelected && isFlagged && (
-								<FaCheck className="absolute top-0 right-0 transform translate-x-1/2 -translate-y-1/2 w-2 h-2 text-green-500" />
+								<FaCheck className="absolute top-2 right-1 transform translate-x-1/2 -translate-y-1/2 w-5 h-5 text-green-500" />
 							)}
 							{index + 1}
 						</Button>
