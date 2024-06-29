@@ -74,6 +74,7 @@
     @apply bg-background text-foreground;
   }
 }
+
 /* src/styles/globals.css */
 .chart-container {
   display: flex;
@@ -89,7 +90,7 @@
 .chart-wrapper {
   flex: 1 1 100%; /* Each chart takes full width on small screens */
   max-width: 400px; /* Limits the maximum width of each chart */
-  height: 200px; /* Sets a fixed height for the charts */
+  height: 250px; /* Sets a fixed height for the charts */
   margin: 20px; /* Adds space around each chart */
 }
 

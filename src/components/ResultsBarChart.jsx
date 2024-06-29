@@ -130,7 +130,7 @@ const ResultsBarChart = ({
 					data={resultsData}
 				/>
 			</div>
-			<div className="chart-wrapper">
+			<div className="chart-wrapper ">
 				<h2>Time Taken</h2>
 				<Bar
 					options={{
