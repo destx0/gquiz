@@ -80,7 +80,7 @@ const TestCardList = ({ tests, sectionTitle }) => {
 									<Clock size={16} className="mr-1" />
 									<Label>{test.duration} Mins</Label>
 								</div>
-								<div className="flex items-center justify-center">
+								<div className="flex items-center ">
 									<HelpCircle size={16} className="mr-1" />
 									<Label>{test.questions} Questions</Label>
 								</div>
