@@ -1,9 +1,10 @@
 import Image from "next/image";
-
+import { PostSubmit } from "@/components/PostSubmit";
 export default function Home() {
 	return (
 		<main className="flex min-h-screen flex-col items-center justify-between p-24">
 			<div>home</div>
+			<PostSubmit />
 		</main>
 	);
 }

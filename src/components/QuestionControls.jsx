@@ -6,6 +6,7 @@ import {
 	FaStar,
 	FaPaperPlane,
 } from "react-icons/fa";
+import { PostSubmit } from "@/components/PostSubmit";
 
 const QuestionControls = ({
 	currentQuestionIndex,
@@ -59,7 +60,7 @@ const QuestionControls = ({
 			</div>
 			<Button className="flex items-center space-x-2 bg-primary text-white shadow-lg">
 				<FaPaperPlane />
-				<span>Submit Test</span>
+				<PostSubmit />
 			</Button>
 		</div>
 	);
