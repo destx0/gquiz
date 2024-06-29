@@ -35,6 +35,7 @@ export function PostSubmit() {
 				<DrawerTrigger>
 					<Button className="flex items-center space-x-2 bg-primary text-white shadow-lg">
 						<FaPaperPlane />
+						<span>Submit</span>
 					</Button>
 				</DrawerTrigger>
 				<DrawerContent>
