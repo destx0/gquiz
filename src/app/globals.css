@@ -90,7 +90,7 @@
 .chart-wrapper {
   flex: 1 1 100%; /* Each chart takes full width on small screens */
   max-width: 400px; /* Limits the maximum width of each chart */
-  height: 250px; /* Sets a fixed height for the charts */
+  height: 100px; /* Sets a fixed height for the charts */
   margin: 20px; /* Adds space around each chart */
 }
 
