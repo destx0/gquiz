@@ -49,12 +49,13 @@ const SSCPage = () => {
 		<div>
 			<SSCHeader />
 			<div className="my-8 px-4">
-				<h2 className="text-2xl font-bold mb-4">Daily Quizzes</h2>
-				<TestCardList tests={dailyQuizzes} />
+				<TestCardList
+					tests={dailyQuizzes}
+					sectionTitle={"Daily Quizzes"}
+				/>
 			</div>
 			<div className="my-8 px-4">
-				<h2 className="text-2xl font-bold mb-4">Mock Tests</h2>
-				<TestCardList tests={mockTests} />
+				<TestCardList tests={mockTests} sectionTitle={"Mock  Tests"} />
 			</div>
 		</div>
 	);
