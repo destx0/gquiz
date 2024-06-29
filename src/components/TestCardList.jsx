@@ -34,14 +34,24 @@ const TestCardList = ({ tests, sectionTitle }) => {
 								{test.testName}
 							</span>
 							{test.status === "completed" ? (
-								<Button
-									size="sm"
-									variant="secondary"
-									className="text-xs"
-								>
-									<BarChart2 size={14} className="mr-1" />
-									Results
-								</Button>
+								<div className="flex space-x-2">
+									<Button
+										size="sm"
+										variant="secondary"
+										className="text-xs"
+									>
+										<BarChart2 size={14} className="mr-1" />
+										Results
+									</Button>
+									<Button
+										size="sm"
+										variant="secondary"
+										className="text-xs"
+									>
+										<RefreshCw size={14} className="mr-1" />
+										Retake
+									</Button>
+								</div>
 							) : (
 								<Button size="sm" className="text-xs">
 									<ArrowRight size={14} className="mr-1" />
