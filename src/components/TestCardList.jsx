@@ -71,14 +71,14 @@ const TestCardList = ({ tests, sectionTitle }) => {
 									</Button>
 								)}
 							</div>
-							<div className="flex space-x-4">
+							<div className="flex gap-4 ">
 								<div className="flex items-center">
 									<CheckSquare size={16} className="mr-1" />
 									<Label>{test.questions} Questions</Label>
 								</div>
 								<div className="flex items-center">
 									<Clock size={16} className="mr-1" />
-									<Label>{test.duration} Mins</Label>
+									<Label>{test.time} </Label>
 								</div>
 								<div className="flex items-center ">
 									<HelpCircle size={16} className="mr-1" />
