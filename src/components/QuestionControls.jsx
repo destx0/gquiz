@@ -58,10 +58,7 @@ const QuestionControls = ({
 					<FaArrowRight />
 				</Button>
 			</div>
-			<Button className="flex items-center space-x-2 bg-primary text-white shadow-lg">
-				<FaPaperPlane />
-				<PostSubmit />
-			</Button>
+			<PostSubmit />
 		</div>
 	);
 };

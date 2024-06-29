@@ -12,6 +12,12 @@ import {
 } from "@/components/ui/drawer";
 import { Button } from "@/components/ui/button";
 import ResultsBarChart from "@/components/ResultsBarChart";
+import {
+	FaArrowRight,
+	FaTimesCircle,
+	FaStar,
+	FaPaperPlane,
+} from "react-icons/fa";
 export function PostSubmit() {
 	const [isOpen, setIsOpen] = useState(false);
 
@@ -26,7 +32,11 @@ export function PostSubmit() {
 	return (
 		<>
 			<Drawer>
-				<DrawerTrigger>Submit</DrawerTrigger>
+				<DrawerTrigger>
+					<Button className="flex items-center space-x-2 bg-primary text-white shadow-lg">
+						<FaPaperPlane />
+					</Button>
+				</DrawerTrigger>
 				<DrawerContent>
 					<DrawerHeader>
 						<DrawerTitle>Results summary</DrawerTitle>
