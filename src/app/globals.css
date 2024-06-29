@@ -74,3 +74,27 @@
     @apply bg-background text-foreground;
   }
 }
+/* src/styles/globals.css */
+.chart-container {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  flex-wrap: wrap; /* Allows wrapping on smaller screens */
+  gap: 20px; /* Adds space between the charts */
+  margin: 0 auto;
+  max-width: 1000px; /* Limits the maximum width of the container */
+}
+
+.chart-wrapper {
+  flex: 1 1 100%; /* Each chart takes full width on small screens */
+  max-width: 400px; /* Limits the maximum width of each chart */
+  height: 200px; /* Sets a fixed height for the charts */
+  margin: 20px; /* Adds space around each chart */
+}
+
+@media (min-width: 768px) {
+  .chart-wrapper {
+    flex: 1 1 45%; /* Each chart takes about half the width on larger screens */
+  }
+}
