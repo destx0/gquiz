@@ -19,13 +19,23 @@ import {
 	BarChart2,
 } from "lucide-react";
 
-const TestCardList = ({ tests, sectionTitle }) => {
+const getBadgeColor = (language) => {
+	switch (language.toLowerCase()) {
+		case "english":
+			return "bg-blue-900 text-white";
+		case "hindi":
+			return "bg-green-900 text-white";
+		default:
+			return "bg-gray-500 text-white";
+	}
+};
+const TestCardList = ({ tests, sectionTitle, description }) => {
 	return (
-		<Card className="max-w-screen-md ">
+		<Card>
 			<CardHeader>
 				<CardTitle>{sectionTitle}</CardTitle>
 				<CardDescription className="text-sm text-gray-600">
-					Some description text here
+					{description}
 				</CardDescription>
 			</CardHeader>
 			<CardContent>
@@ -33,9 +43,23 @@ const TestCardList = ({ tests, sectionTitle }) => {
 					<div key={index} className="p-4">
 						<div>
 							<div className="flex justify-between items-center pb-4">
-								<span className="text-xl font-semibold">
-									{test.testName}
-								</span>
+								<div className="flex gap-2 items-center">
+									<span className="text-xl font-semibold">
+										{test.testName}
+									</span>
+									<div className="flex gap-2">
+										{test.languages.map((language, idx) => (
+											<Badge
+												key={idx}
+												className={getBadgeColor(
+													language
+												)}
+											>
+												{language}
+											</Badge>
+										))}
+									</div>
+								</div>
 								{test.status === "completed" ? (
 									<div className="flex space-x-2">
 										<Button
