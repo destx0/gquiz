@@ -31,7 +31,7 @@ const getBadgeColor = (language) => {
 };
 const TestCardList = ({ tests, sectionTitle, description }) => {
 	return (
-		<Card>
+		<Card className="shadow-2xl">
 			<CardHeader>
 				<CardTitle>{sectionTitle}</CardTitle>
 				<CardDescription className="text-sm text-gray-600">
