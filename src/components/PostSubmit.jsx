@@ -1,4 +1,3 @@
-"use client";
 import { useState } from "react";
 import {
 	Drawer,
@@ -12,28 +11,26 @@ import {
 import { Button } from "@/components/ui/button";
 import ResultsBarChart from "@/components/ResultsBarChart";
 import { FaPaperPlane } from "react-icons/fa";
-import useTestStore from "@/store/useTestStore"; // Adjust the import path as needed
+import useTestStore from "@/store/testStore";
 
 export function PostSubmit() {
 	const [isOpen, setIsOpen] = useState(false);
-	const calculateScores = useTestStore((state) =>
-		state.calculateScores()(state)
-	);
+	const calculateScores = useTestStore((state) => state.calculateScores);
 
 	const handleSubmit = () => {
 		setIsOpen(true);
 	};
 
-	const { correct, wrong, unattempted } =
-		calculateScores.sectionScores.reduce(
-			(acc, section) => {
-				acc.correct += section.score;
-				acc.wrong += section.answered - section.score;
-				acc.unattempted += section.totalQuestions - section.answered;
-				return acc;
-			},
-			{ correct: 0, wrong: 0, unattempted: 0 }
-		);
+	const scores = calculateScores();
+	const { correct, wrong, unattempted } = scores.sectionScores.reduce(
+		(acc, section) => {
+			acc.correct += section.score;
+			acc.wrong += section.answered - section.score;
+			acc.unattempted += section.totalQuestions - section.answered;
+			return acc;
+		},
+		{ correct: 0, wrong: 0, unattempted: 0 }
+	);
 
 	return (
 		<Drawer open={isOpen} onOpenChange={setIsOpen}>
@@ -61,7 +58,7 @@ export function PostSubmit() {
 					/>
 					<div className="mt-4">
 						<h3 className="font-semibold">Section Scores:</h3>
-						{calculateScores.sectionScores.map((section, index) => (
+						{scores.sectionScores.map((section, index) => (
 							<div key={index} className="flex justify-between">
 								<span>{section.section}:</span>
 								<span>
@@ -72,8 +69,7 @@ export function PostSubmit() {
 						<div className="mt-2 font-bold flex justify-between">
 							<span>Total Score:</span>
 							<span>
-								{calculateScores.totalScore} /{" "}
-								{calculateScores.totalQuestions}
+								{scores.totalScore} / {scores.totalQuestions}
 							</span>
 						</div>
 					</div>

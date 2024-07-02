@@ -5,7 +5,7 @@ import TestHeader from "@/components/TestHeader";
 import MainContent from "@/components/MainContent";
 import QuestionControls from "@/components/QuestionControls";
 import questions from "@/data/questions";
-import useTestStore from "@/store/useTestStore";
+import useTestStore from "@/store/testStore";
 
 export default function Test() {
 	const {

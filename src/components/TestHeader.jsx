@@ -3,7 +3,7 @@ import { Button } from "@/components/ui/button";
 import { PanelRightOpen, PanelRightClose } from "lucide-react";
 import { Tabs, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import questions from "@/data/questions";
-import useTestStore from "@/store/useTestStore";
+import useTestStore from "@/store/testStore";
 
 const TestHeader = ({ setShowNavigation }) => {
 	const { setCurrentSectionIndex, currentSectionIndex, showNavigation } =

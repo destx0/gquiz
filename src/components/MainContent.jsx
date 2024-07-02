@@ -1,7 +1,7 @@
 import React from "react";
 import MainQuestion from "@/components/MainQuestion";
 import NavigationSidebar from "@/components/NavigationSidebar";
-import useTestStore from "@/store/useTestStore";
+import useTestStore from "@/store/testStore";
 
 const MainContent = () => {
 	const {
