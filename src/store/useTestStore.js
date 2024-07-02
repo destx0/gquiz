@@ -6,132 +6,102 @@ const useTestStore = create((set) => ({
 	selectedOptions: [],
 	visitedQuestions: [],
 	flaggedQuestions: [],
+	questions: [],
 	showNavigation: false,
-	initializeQuestions: (questions) => {
+
+	initializeQuestions: (questions) =>
 		set({
+			questions,
 			selectedOptions: questions.map((section) =>
-				Array(section.questions.length).fill(null)
+				new Array(section.questions.length).fill(null)
 			),
 			visitedQuestions: questions.map((section) =>
-				Array(section.questions.length).fill(false)
+				new Array(section.questions.length).fill(false)
 			),
 			flaggedQuestions: questions.map((section) =>
-				Array(section.questions.length).fill(false)
+				new Array(section.questions.length).fill(false)
 			),
-		});
-	},
+		}),
+
+	handleOptionSelect: (sectionIndex, questionIndex, optionIndex) =>
+		set((state) => {
+			const newSelectedOptions = [...state.selectedOptions];
+			newSelectedOptions[sectionIndex] = [
+				...newSelectedOptions[sectionIndex],
+			];
+			newSelectedOptions[sectionIndex][questionIndex] = optionIndex;
+			return { selectedOptions: newSelectedOptions };
+		}),
+
 	setCurrentSectionIndex: (index) =>
 		set({ currentSectionIndex: index, currentQuestionIndex: 0 }),
+
 	setCurrentQuestionIndex: (index) => set({ currentQuestionIndex: index }),
-	handleOptionSelect: (index) =>
-		set((state) => {
-			const newSelectedOptions = state.selectedOptions.map(
-				(section, sIndex) =>
-					sIndex === state.currentSectionIndex
-						? section.map((opt, qIndex) =>
-								qIndex === state.currentQuestionIndex
-									? index
-									: opt
-						  )
-						: section
-			);
-			return { selectedOptions: newSelectedOptions };
-		}),
-	unmarkQuestion: (sectionIndex, questionIndex) =>
-		set((state) => {
-			const newSelectedOptions = state.selectedOptions.map(
-				(section, sIndex) =>
-					sIndex === sectionIndex
-						? section.map((opt, qIndex) =>
-								qIndex === questionIndex ? null : opt
-						  )
-						: section
-			);
-			return { selectedOptions: newSelectedOptions };
-		}),
-	markForReview: (sectionIndex, questionIndex) =>
-		set((state) => {
-			const newFlaggedQuestions = state.flaggedQuestions.map(
-				(section, sIndex) =>
-					sIndex === sectionIndex
-						? section.map((flag, qIndex) =>
-								qIndex === questionIndex ? !flag : flag
-						  )
-						: section
-			);
-			return { flaggedQuestions: newFlaggedQuestions };
-		}),
-	jumpToQuestion: (sectionIndex, questionIndex) =>
-		set({
-			currentSectionIndex: sectionIndex,
-			currentQuestionIndex: questionIndex,
-		}),
-	setShowNavigation: (show) => set({ showNavigation: show }),
+
 	markQuestionAsVisited: () =>
 		set((state) => {
-			const newVisitedQuestions = state.visitedQuestions.map(
-				(section, sIndex) =>
-					sIndex === state.currentSectionIndex
-						? section.map((visited, qIndex) =>
-								qIndex === state.currentQuestionIndex
-									? true
-									: visited
-						  )
-						: section
-			);
+			const newVisitedQuestions = [...state.visitedQuestions];
+			newVisitedQuestions[state.currentSectionIndex] = [
+				...newVisitedQuestions[state.currentSectionIndex],
+			];
+			newVisitedQuestions[state.currentSectionIndex][
+				state.currentQuestionIndex
+			] = true;
 			return { visitedQuestions: newVisitedQuestions };
 		}),
-	calculateScores: () => {
-		return (state) => {
-			const { questions, selectedOptions } = state;
 
-			if (!questions || questions.length === 0) {
-				return {
-					sectionScores: [],
-					totalScore: 0,
-					totalQuestions: 0,
-				};
-			}
+	markForReview: (sectionIndex, questionIndex) =>
+		set((state) => {
+			const newFlaggedQuestions = [...state.flaggedQuestions];
+			newFlaggedQuestions[sectionIndex] = [
+				...newFlaggedQuestions[sectionIndex],
+			];
+			newFlaggedQuestions[sectionIndex][questionIndex] =
+				!newFlaggedQuestions[sectionIndex][questionIndex];
+			return { flaggedQuestions: newFlaggedQuestions };
+		}),
 
-			const scores = questions.map((section, sectionIndex) => {
-				const sectionScore = section.questions.reduce(
-					(score, question, questionIndex) => {
-						const selectedOptionIndex =
-							selectedOptions[sectionIndex][questionIndex];
-						if (selectedOptionIndex === question.answerIndex) {
-							return score + 1;
-						}
-						return score;
-					},
-					0
-				);
+	setShowNavigation: (show) => set({ showNavigation: show }),
 
-				const answered = selectedOptions[sectionIndex].filter(
-					(option) => option !== null
-				).length;
+	calculateScores: () => (state) => {
+		const { questions, selectedOptions } = state;
 
-				return {
-					section: section.section,
-					score: sectionScore,
-					totalQuestions: section.questions.length,
-					answered,
-				};
-			});
-
-			const totalScore = scores.reduce(
-				(total, section) => total + section.score,
-				0
-			);
-			const totalQuestions = scores.reduce(
-				(total, section) => total + section.totalQuestions,
+		const scores = questions.map((section, sectionIndex) => {
+			const sectionScore = section.questions.reduce(
+				(score, question, questionIndex) => {
+					const selectedOptionIndex =
+						selectedOptions[sectionIndex][questionIndex];
+					if (selectedOptionIndex === question.answerIndex) {
+						return score + 1;
+					}
+					return score;
+				},
 				0
 			);
 
 			return {
-				sectionScores: scores,
-				totalScore,
-				totalQuestions,
+				section: section.section,
+				score: sectionScore,
+				totalQuestions: section.questions.length,
+				answered: selectedOptions[sectionIndex].filter(
+					(option) => option !== null
+				).length,
 			};
+		});
+
+		const totalScore = scores.reduce(
+			(total, section) => total + section.score,
+			0
+		);
+		const totalQuestions = scores.reduce(
+			(total, section) => total + section.totalQuestions,
+			0
+		);
+
+		return {
+			sectionScores: scores,
+			totalScore,
+			totalQuestions,
 		};
 	},
 }));

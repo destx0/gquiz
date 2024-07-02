@@ -18,12 +18,16 @@ const MainQuestion = ({
 	const selectedOptionIndex =
 		selectedOptions[currentSectionIndex]?.[currentQuestionIndex] ?? null;
 
+	const onSelectOption = (index) => {
+		handleOptionSelect(currentSectionIndex, currentQuestionIndex, index);
+	};
+
 	return (
 		<Question
 			question={currentQuestion.question}
 			options={currentQuestion.options}
 			selectedOptionIndex={selectedOptionIndex}
-			onSelectOption={handleOptionSelect}
+			onSelectOption={onSelectOption}
 		/>
 	);
 };

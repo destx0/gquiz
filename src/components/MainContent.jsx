@@ -2,12 +2,12 @@ import React from "react";
 import MainQuestion from "@/components/MainQuestion";
 import NavigationSidebar from "@/components/NavigationSidebar";
 import useTestStore from "@/store/useTestStore";
-import questions from "@/data/questions";
 
 const MainContent = () => {
 	const {
 		currentSectionIndex,
 		currentQuestionIndex,
+		questions,
 		selectedOptions,
 		handleOptionSelect,
 		jumpToQuestion,
@@ -15,7 +15,16 @@ const MainContent = () => {
 		flaggedQuestions,
 		showNavigation,
 		setShowNavigation,
+		markQuestionAsVisited,
 	} = useTestStore();
+
+	React.useEffect(() => {
+		markQuestionAsVisited();
+	}, [currentSectionIndex, currentQuestionIndex, markQuestionAsVisited]);
+
+	if (!questions || questions.length === 0) {
+		return <div>Loading...</div>;
+	}
 
 	return (
 		<div className="flex w-full">
@@ -39,7 +48,7 @@ const MainContent = () => {
 					showNavigation={showNavigation}
 					setShowNavigation={setShowNavigation}
 					numberOfQuestions={
-						questions[currentSectionIndex].questions.length
+						questions[currentSectionIndex]?.questions.length || 0
 					}
 				/>
 			</div>
