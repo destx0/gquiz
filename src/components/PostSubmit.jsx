@@ -2,7 +2,6 @@
 import { useState } from "react";
 import {
 	Drawer,
-	DrawerClose,
 	DrawerContent,
 	DrawerDescription,
 	DrawerFooter,
@@ -12,56 +11,80 @@ import {
 } from "@/components/ui/drawer";
 import { Button } from "@/components/ui/button";
 import ResultsBarChart from "@/components/ResultsBarChart";
-import {
-	FaArrowRight,
-	FaTimesCircle,
-	FaStar,
-	FaPaperPlane,
-} from "react-icons/fa";
+import { FaPaperPlane } from "react-icons/fa";
+import useTestStore from "@/store/useTestStore"; // Adjust the import path as needed
+
 export function PostSubmit() {
 	const [isOpen, setIsOpen] = useState(false);
+	const calculateScores = useTestStore((state) =>
+		state.calculateScores()(state)
+	);
 
-	const openDrawer = () => setIsOpen(true);
-	const closeDrawer = () => setIsOpen(false);
-	const correct = 12; // Replace with your actual data
-	const wrong = 5; // Replace with your actual data
-	const unattempted = 3; // Replace with your actual data
-	const timeTaken = 30; // Replace with your actual data (in minutes)
-	const totalTime = 60; // Replace with your actual data (in minutes)
+	const handleSubmit = () => {
+		setIsOpen(true);
+	};
+
+	const { correct, wrong, unattempted } =
+		calculateScores.sectionScores.reduce(
+			(acc, section) => {
+				acc.correct += section.score;
+				acc.wrong += section.answered - section.score;
+				acc.unattempted += section.totalQuestions - section.answered;
+				return acc;
+			},
+			{ correct: 0, wrong: 0, unattempted: 0 }
+		);
 
 	return (
-		<>
-			<Drawer>
-				<DrawerTrigger>
-					<Button className="flex items-center space-x-2 bg-primary text-white shadow-lg">
-						<FaPaperPlane />
-						<span>Submit</span>
-					</Button>
-				</DrawerTrigger>
-				<DrawerContent>
-					<DrawerHeader>
-						<DrawerTitle>Results summary</DrawerTitle>
-						<DrawerDescription>
-							This action cannot be undone.
-						</DrawerDescription>
-						<div className="p-2 align-center justify-center">
-							<ResultsBarChart
-								correct={correct}
-								wrong={wrong}
-								unattempted={unattempted}
-								timeTaken={timeTaken}
-								totalTime={totalTime}
-							/>
+		<Drawer open={isOpen} onOpenChange={setIsOpen}>
+			<DrawerTrigger asChild>
+				<Button
+					onClick={handleSubmit}
+					className="flex items-center space-x-2 bg-primary text-white shadow-lg"
+				>
+					<FaPaperPlane />
+					<span>Submit</span>
+				</Button>
+			</DrawerTrigger>
+			<DrawerContent>
+				<DrawerHeader>
+					<DrawerTitle>Results summary</DrawerTitle>
+					<DrawerDescription>
+						Here's a breakdown of your performance.
+					</DrawerDescription>
+				</DrawerHeader>
+				<div className="p-4">
+					<ResultsBarChart
+						correct={correct}
+						wrong={wrong}
+						unattempted={unattempted}
+					/>
+					<div className="mt-4">
+						<h3 className="font-semibold">Section Scores:</h3>
+						{calculateScores.sectionScores.map((section, index) => (
+							<div key={index} className="flex justify-between">
+								<span>{section.section}:</span>
+								<span>
+									{section.score} / {section.totalQuestions}
+								</span>
+							</div>
+						))}
+						<div className="mt-2 font-bold flex justify-between">
+							<span>Total Score:</span>
+							<span>
+								{calculateScores.totalScore} /{" "}
+								{calculateScores.totalQuestions}
+							</span>
 						</div>
-					</DrawerHeader>
-					<DrawerFooter>
-						<div className="flex gap-4 justify-center">
-							<Button>Answers</Button>
-							<Button>Result analysis</Button>
-						</div>
-					</DrawerFooter>
-				</DrawerContent>
-			</Drawer>
-		</>
+					</div>
+				</div>
+				<DrawerFooter>
+					<div className="flex gap-4 justify-center">
+						<Button>Answers</Button>
+						<Button>Result analysis</Button>
+					</div>
+				</DrawerFooter>
+			</DrawerContent>
+		</Drawer>
 	);
 }

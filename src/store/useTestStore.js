@@ -81,6 +81,59 @@ const useTestStore = create((set) => ({
 			);
 			return { visitedQuestions: newVisitedQuestions };
 		}),
+	calculateScores: () => {
+		return (state) => {
+			const { questions, selectedOptions } = state;
+
+			if (!questions || questions.length === 0) {
+				return {
+					sectionScores: [],
+					totalScore: 0,
+					totalQuestions: 0,
+				};
+			}
+
+			const scores = questions.map((section, sectionIndex) => {
+				const sectionScore = section.questions.reduce(
+					(score, question, questionIndex) => {
+						const selectedOptionIndex =
+							selectedOptions[sectionIndex][questionIndex];
+						if (selectedOptionIndex === question.answerIndex) {
+							return score + 1;
+						}
+						return score;
+					},
+					0
+				);
+
+				const answered = selectedOptions[sectionIndex].filter(
+					(option) => option !== null
+				).length;
+
+				return {
+					section: section.section,
+					score: sectionScore,
+					totalQuestions: section.questions.length,
+					answered,
+				};
+			});
+
+			const totalScore = scores.reduce(
+				(total, section) => total + section.score,
+				0
+			);
+			const totalQuestions = scores.reduce(
+				(total, section) => total + section.totalQuestions,
+				0
+			);
+
+			return {
+				sectionScores: scores,
+				totalScore,
+				totalQuestions,
+			};
+		};
+	},
 }));
 
 export default useTestStore;
