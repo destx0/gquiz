@@ -192,6 +192,73 @@ const quizData = {
 				},
 			],
 		},
+		{
+			section: "LaTeX Math",
+			questions: [
+				{
+					question:
+						"What is the solution to the equation $x^2 - 4x + 4 = 0$?",
+					options: [
+						"$x = 2$",
+						"$x = 0$ or $x = 4$",
+						"$x = -2$ or $x = 2$",
+						"$x = 2$ (double root)",
+					],
+					answerIndex: 3,
+					explanation:
+						"The equation $x^2 - 4x + 4 = 0$ can be factored as $(x-2)^2 = 0$, which has a double root at $x = 2$.",
+				},
+				{
+					question: "What is the derivative of $f(x) = e^x$?",
+					options: [
+						"$f'(x) = e^x$",
+						"$f'(x) = xe^x$",
+						"$f'(x) = e^{x-1}$",
+						"$f'(x) = ln(x)$",
+					],
+					answerIndex: 0,
+					explanation: "The derivative of $e^x$ is itself, $e^x$.",
+				},
+				{
+					question:
+						"Simplify the expression $\\frac{\\sin^2 \\theta + \\cos^2 \\theta}{\\tan^2 \\theta + 1}$.",
+					options: [
+						"$\\sin^2 \\theta$",
+						"$\\cos^2 \\theta$",
+						"$1$",
+						"$0$",
+					],
+					answerIndex: 2,
+					explanation:
+						"Using the identities $\\sin^2 \\theta + \\cos^2 \\theta = 1$ and $\\tan^2 \\theta + 1 = \\sec^2 \\theta$, the expression simplifies to $\\frac{1}{\\sec^2 \\theta} = \\cos^2 \\theta$. Then, $\\frac{1}{\\cos^2 \\theta} \\cdot \\cos^2 \\theta = 1$.",
+				},
+				{
+					question: "What is the area of a circle with radius $r$?",
+					options: [
+						"$A = \\pi r^2$",
+						"$A = 2\\pi r$",
+						"$A = \\frac{1}{2}\\pi r^2$",
+						"$A = 4\\pi r^2$",
+					],
+					answerIndex: 0,
+					explanation:
+						"The area of a circle is given by the formula $A = \\pi r^2$, where $r$ is the radius.",
+				},
+				{
+					question:
+						"Solve the system of equations:\n$\\begin{cases}2x + y = 5 \\\\ x - y = 1\\end{cases}$",
+					options: [
+						"$x = 2, y = 1$",
+						"$x = 3, y = -1$",
+						"$x = 1, y = 3$",
+						"$x = 3, y = -2$",
+					],
+					answerIndex: 1,
+					explanation:
+						"Adding the equations eliminates $y$: $3x = 6$, so $x = 2$. Substituting back: $2(2) + y = 5$, so $y = 1$.",
+				},
+			],
+		},
 	],
 };
 
