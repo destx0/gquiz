@@ -1,7 +1,5 @@
 import React from "react";
 import Question from "@/components/Question";
-import QuestionTimer from "@/components/QuestionTimer";
-import useTestStore from "@/store/testStore";
 
 const MainQuestion = ({
 	currentSectionIndex,
@@ -26,10 +24,6 @@ const MainQuestion = ({
 
 	return (
 		<div className="space-y-6">
-			<QuestionTimer
-				sectionIndex={currentSectionIndex}
-				questionIndex={currentQuestionIndex}
-			/>
 			<Question
 				question={currentQuestion.question}
 				options={currentQuestion.options}
