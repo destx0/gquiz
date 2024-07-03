@@ -19,26 +19,29 @@ const CountdownTimer = ({ remainingTime, totalTime }) => {
 			.padStart(2, "0")}`;
 	};
 
-	const displayTime =
-		isSubmitted || areTimersFrozen
-			? "Time's up!"
-			: formatTime(remainingTime);
+	const displayTime = formatTime(remainingTime);
 
 	return (
 		<div className="relative w-28 h-6 bg-blue-500 rounded-full overflow-hidden">
 			<div
 				className="absolute inset-y-0 right-0 bg-red-500"
 				style={{
-					width: `${
-						isSubmitted || areTimersFrozen
-							? 100
-							: elapsedTimeProgress
-					}%`,
+					width: `${elapsedTimeProgress}%`,
 				}}
 			></div>
 			<div className="absolute inset-0 flex items-center justify-center">
-				<Clock className="w-3 h-3 mr-1 text-white" />
-				<span className="text-white font-medium">{displayTime}</span>
+				<Clock
+					className={`w-3 h-3 mr-1 text-white ${
+						isSubmitted || areTimersFrozen ? "opacity-70" : ""
+					}`}
+				/>
+				<span
+					className={`text-white font-medium ${
+						isSubmitted || areTimersFrozen ? "opacity-70" : ""
+					}`}
+				>
+					{displayTime}
+				</span>
 			</div>
 		</div>
 	);
