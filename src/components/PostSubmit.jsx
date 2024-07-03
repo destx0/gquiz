@@ -79,7 +79,7 @@ export function PostSubmit() {
 				<DrawerHeader>
 					<DrawerTitle>Results Summary</DrawerTitle>
 					<DrawerDescription>
-						Here's a breakdown of your performance.
+						Here&apos;s a breakdown of your performance.
 					</DrawerDescription>
 				</DrawerHeader>
 				<div className="p-4 overflow-y-auto flex-grow">
