@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from "react";
 import useTestStore from "@/store/testStore";
-import { Progress } from "@/components/ui/progress";
 import { Badge } from "@/components/ui/badge";
 import { Clock, CheckCircle, XCircle } from "lucide-react";
 
@@ -77,39 +76,44 @@ const SecondaryHeader = ({ currentSectionIndex, currentQuestionIndex }) => {
 	};
 
 	return (
-		<div className="bg-gray-50 px-4 py-2 rounded-md shadow-sm">
-			<div className="flex items-center justify-between flex-wrap gap-2">
-				<div className="flex items-center space-x-3">
-					<div className="inline-flex items-center bg-blue-100 rounded-full px-2 py-1 text-xs text-blue-800">
-						<Clock className="w-3 h-3 mr-1" />
-						<span className="font-mono">
-							{formatTime(questionElapsedTime)}
-						</span>
-					</div>
-					<div className="flex items-center text-sm">
-						<Clock className="w-4 h-4 text-gray-500 mr-1" />
-						<span className="font-medium">
-							{formatTime(globalTimeRemaining)}
-						</span>
-					</div>
-				</div>
-				<div className="flex items-center space-x-2">
-					<Badge
-						variant="secondary"
-						className="text-green-600 bg-green-100"
+		<div className="bg-white px-4 py-2 flex items-center justify-between text-xs">
+			<div className="inline-flex items-center bg-gray-100 rounded-full px-2 py-1 text-gray-600">
+				<Clock className="w-3 h-3 mr-1" />
+				<span>{formatTime(questionElapsedTime)}</span>
+			</div>
+			<div className="relative w-24 h-6 bg-blue-100 rounded-full overflow-hidden">
+				<div
+					className="absolute inset-0 bg-blue-600"
+					style={{
+						clipPath: `inset(0 ${100 - globalTimeProgress}% 0 0)`,
+					}}
+				></div>
+				<div className="absolute inset-0 flex items-center justify-center">
+					<Clock className="w-3 h-3 mr-1 text-white" />
+					<span
+						className="font-medium"
+						style={{
+							color:
+								globalTimeProgress > 50 ? "white" : "#1e40af",
+						}}
 					>
-						<CheckCircle className="w-3 h-3 mr-1" />+{positiveMarks}
-					</Badge>
-					<Badge
-						variant="secondary"
-						className="text-red-600 bg-red-100"
-					>
-						<XCircle className="w-3 h-3 mr-1" />-{negativeMarks}
-					</Badge>
+						{formatTime(globalTimeRemaining)}
+					</span>
 				</div>
 			</div>
-			<div className="mt-2">
-				<Progress value={globalTimeProgress} className="h-1" />
+			<div className="flex items-center space-x-2">
+				<Badge
+					variant="secondary"
+					className="text-green-600 bg-green-100 h-6 px-2 flex items-center"
+				>
+					<CheckCircle className="w-3 h-3 mr-1" />+{positiveMarks}
+				</Badge>
+				<Badge
+					variant="secondary"
+					className="text-red-600 bg-red-100 h-6 px-2 flex items-center"
+				>
+					<XCircle className="w-3 h-3 mr-1" />-{negativeMarks}
+				</Badge>
 			</div>
 		</div>
 	);
