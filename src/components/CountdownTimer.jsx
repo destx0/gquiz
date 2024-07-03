@@ -1,7 +1,11 @@
 import React from "react";
 import { Clock } from "lucide-react";
+import useTestStore from "@/store/testStore";
 
 const CountdownTimer = ({ remainingTime, totalTime }) => {
+	const isSubmitted = useTestStore((state) => state.getIsSubmitted());
+	const areTimersFrozen = useTestStore((state) => state.areTimersFrozen());
+
 	const elapsedTimeProgress = ((totalTime - remainingTime) / totalTime) * 100;
 
 	const formatTime = (time) => {
@@ -27,7 +31,11 @@ const CountdownTimer = ({ remainingTime, totalTime }) => {
 			></div>
 			<div className="absolute inset-0 flex items-center justify-center">
 				<Clock className="w-3 h-3 mr-1 text-white" />
-				<span className="text-white font-medium">{displayTime}</span>
+				<span className="text-white font-medium">
+					{isSubmitted || areTimersFrozen
+						? "Time's up!"
+						: displayTime}
+				</span>
 			</div>
 		</div>
 	);

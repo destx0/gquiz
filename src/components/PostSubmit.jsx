@@ -1,5 +1,5 @@
 "use client";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import {
 	Drawer,
 	DrawerContent,
@@ -16,11 +16,37 @@ import useTestStore from "@/store/testStore";
 
 export function PostSubmit() {
 	const [isOpen, setIsOpen] = useState(false);
-	const calculateScores = useTestStore((state) => state.calculateScores);
-	const getTotalTimeTaken = useTestStore((state) => state.getTotalTimeTaken);
-	const getTotalTime = useTestStore((state) => state.getTotalTime);
+	const [currentTimeTaken, setCurrentTimeTaken] = useState(0);
+	const {
+		calculateScores,
+		getTotalTime,
+		getIsSubmitted,
+		freezeAllTimers,
+		getQuizStartTime,
+		getFinalTimeTaken,
+	} = useTestStore();
+
+	useEffect(() => {
+		const updateTimeTaken = () => {
+			if (!getIsSubmitted()) {
+				const startTime = getQuizStartTime();
+				const currentTime = Date.now();
+				const elapsedSeconds = Math.floor(
+					(currentTime - startTime) / 1000
+				);
+				setCurrentTimeTaken(elapsedSeconds);
+			}
+		};
+
+		const timer = setInterval(updateTimeTaken, 1000);
+
+		return () => clearInterval(timer);
+	}, [getIsSubmitted, getQuizStartTime]);
 
 	const handleSubmit = () => {
+		if (!getIsSubmitted()) {
+			freezeAllTimers();
+		}
 		setIsOpen(true);
 	};
 
@@ -35,8 +61,8 @@ export function PostSubmit() {
 		{ correct: 0, wrong: 0, unattempted: 0 }
 	);
 
-	const timeTaken = getTotalTimeTaken();
 	const totalTime = getTotalTime() * 60; // Convert minutes to seconds
+	const timeTaken = getIsSubmitted() ? getFinalTimeTaken() : currentTimeTaken;
 
 	return (
 		<Drawer open={isOpen} onOpenChange={setIsOpen}>
@@ -46,17 +72,17 @@ export function PostSubmit() {
 					className="flex items-center space-x-2 bg-primary text-white shadow-lg"
 				>
 					<FaPaperPlane />
-					<span>Submit</span>
+					<span>{getIsSubmitted() ? "View Results" : "Submit"}</span>
 				</Button>
 			</DrawerTrigger>
-			<DrawerContent>
+			<DrawerContent className="h-[80vh] max-h-[80vh]">
 				<DrawerHeader>
-					<DrawerTitle>Results summary</DrawerTitle>
+					<DrawerTitle>Results Summary</DrawerTitle>
 					<DrawerDescription>
-						Here&apos;s a breakdown of your performance.
+						Here's a breakdown of your performance.
 					</DrawerDescription>
 				</DrawerHeader>
-				<div className="p-4">
+				<div className="p-4 overflow-y-auto flex-grow">
 					<ResultsBarChart
 						correct={correct}
 						wrong={wrong}
@@ -67,8 +93,8 @@ export function PostSubmit() {
 				</div>
 				<DrawerFooter>
 					<div className="flex gap-4 justify-center">
-						<Button>Answers</Button>
-						<Button>Result analysis</Button>
+						<Button onClick={() => setIsOpen(false)}>Close</Button>
+						<Button>View Answers</Button>
 					</div>
 				</DrawerFooter>
 			</DrawerContent>

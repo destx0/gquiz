@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import useTestStore from "@/store/testStore";
 import { Badge } from "@/components/ui/badge";
 import { Clock, CheckCircle, XCircle } from "lucide-react";
@@ -9,62 +9,58 @@ const SecondaryHeader = ({ currentSectionIndex, currentQuestionIndex }) => {
 		getElapsedTime,
 		updateQuestionTimer,
 		getQuizMetadata,
-		getQuizStartTime,
 		setTotalTimeTaken,
+		areTimersFrozen,
+		getGlobalTimeRemaining,
+		updateGlobalTimeRemaining,
+		getIsSubmitted,
 	} = useTestStore();
 
 	const { totalTimeInMinutes, positiveMarks, negativeMarks } =
 		getQuizMetadata();
-	const quizStartTime = getQuizStartTime();
-
-	const [globalTimeRemaining, setGlobalTimeRemaining] = useState(null);
-	const [questionElapsedTime, setQuestionElapsedTime] = useState(null);
-	const [totalTimeTaken, setLocalTotalTimeTaken] = useState(0);
+	const [globalTimeRemaining, setGlobalTimeRemaining] = useState(
+		getGlobalTimeRemaining()
+	);
+	const [questionElapsedTime, setQuestionElapsedTime] = useState(
+		getElapsedTime(currentSectionIndex, currentQuestionIndex)
+	);
 
 	useEffect(() => {
-		const initializeTimers = () => {
-			const currentTime = Date.now();
-			const elapsedSeconds = Math.floor(
-				(currentTime - quizStartTime) / 1000
-			);
-			const remainingSeconds = Math.max(
-				totalTimeInMinutes * 60 - elapsedSeconds,
-				0
-			);
-			setGlobalTimeRemaining(remainingSeconds);
-			setQuestionElapsedTime(
-				getElapsedTime(currentSectionIndex, currentQuestionIndex)
-			);
-			setLocalTotalTimeTaken(elapsedSeconds);
-		};
+		if (!areTimersFrozen() && !getIsSubmitted()) {
+			const timer = setInterval(() => {
+				updateGlobalTimeRemaining();
+				const newGlobalTimeRemaining = getGlobalTimeRemaining();
+				setGlobalTimeRemaining(newGlobalTimeRemaining);
 
-		initializeTimers();
+				if (newGlobalTimeRemaining <= 0) {
+					clearInterval(timer);
+				} else {
+					const newElapsedTime =
+						getElapsedTime(
+							currentSectionIndex,
+							currentQuestionIndex
+						) + 1;
+					updateQuestionTimer(
+						currentSectionIndex,
+						currentQuestionIndex,
+						newElapsedTime
+					);
+					setQuestionElapsedTime(newElapsedTime);
 
-		const timer = setInterval(() => {
-			setGlobalTimeRemaining((prevTime) => Math.max(prevTime - 1, 0));
-			setQuestionElapsedTime((prevTime) => {
-				const newTime = prevTime + 1;
-				updateQuestionTimer(
-					currentSectionIndex,
-					currentQuestionIndex,
-					newTime
-				);
-				return newTime;
-			});
-			setLocalTotalTimeTaken((prevTime) => {
-				const newTime = prevTime + 1;
-				setTotalTimeTaken(newTime);
-				return newTime;
-			});
-		}, 1000);
+					setTotalTimeTaken((prev) => prev + 1);
+				}
+			}, 1000);
 
-		return () => clearInterval(timer);
+			return () => clearInterval(timer);
+		}
 	}, [
 		currentSectionIndex,
 		currentQuestionIndex,
+		areTimersFrozen,
+		getIsSubmitted,
+		updateGlobalTimeRemaining,
+		getGlobalTimeRemaining,
 		updateQuestionTimer,
-		quizStartTime,
-		totalTimeInMinutes,
 		getElapsedTime,
 		setTotalTimeTaken,
 	]);
@@ -86,12 +82,10 @@ const SecondaryHeader = ({ currentSectionIndex, currentQuestionIndex }) => {
 				<Clock className="w-3 h-3 mr-1" />
 				<span>{formatTime(questionElapsedTime)}</span>
 			</div>
-			{globalTimeRemaining !== null && (
-				<CountdownTimer
-					remainingTime={globalTimeRemaining}
-					totalTime={totalTimeInMinutes * 60}
-				/>
-			)}
+			<CountdownTimer
+				remainingTime={globalTimeRemaining}
+				totalTime={totalTimeInMinutes * 60}
+			/>
 			<div className="flex items-center space-x-2">
 				<Badge
 					variant="secondary"

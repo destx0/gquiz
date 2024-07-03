@@ -28,7 +28,10 @@ export default function Test() {
 		selectedOptions,
 		visitedQuestions,
 		flaggedQuestions,
+		getIsSubmitted,
 	} = useTestStore();
+
+	const isSubmitted = getIsSubmitted();
 
 	useEffect(() => {
 		// Initialize questions
@@ -72,31 +75,42 @@ export default function Test() {
 		markQuestionAsVisited();
 	}, [currentQuestionIndex, currentSectionIndex, markQuestionAsVisited]);
 
+	const handleOptionSelectWrapper = useCallback(
+		(sectionIndex, questionIndex, optionIndex) => {
+			if (!isSubmitted) {
+				handleOptionSelect(sectionIndex, questionIndex, optionIndex);
+			}
+		},
+		[handleOptionSelect, isSubmitted]
+	);
+
 	const memoizedMainContent = useMemo(
 		() => (
 			<MainContent
 				currentSectionIndex={currentSectionIndex}
 				currentQuestionIndex={currentQuestionIndex}
 				selectedOptions={selectedOptions}
-				handleOptionSelect={handleOptionSelect}
+				handleOptionSelect={handleOptionSelectWrapper}
 				jumpToQuestion={jumpToQuestion}
 				visitedQuestions={visitedQuestions}
 				flaggedQuestions={flaggedQuestions}
 				showNavigation={showNavigation}
 				setShowNavigation={setShowNavigation}
 				quizData={quizData}
+				isSubmitted={isSubmitted}
 			/>
 		),
 		[
 			currentSectionIndex,
 			currentQuestionIndex,
 			selectedOptions,
-			handleOptionSelect,
+			handleOptionSelectWrapper,
 			jumpToQuestion,
 			visitedQuestions,
 			flaggedQuestions,
 			showNavigation,
 			setShowNavigation,
+			isSubmitted,
 		]
 	);
 
@@ -109,6 +123,7 @@ export default function Test() {
 				setCurrentQuestionIndex={setCurrentQuestionIndex}
 				unmarkQuestion={unmarkQuestion}
 				markForReview={markForReview}
+				isSubmitted={isSubmitted}
 			/>
 		),
 		[
@@ -117,6 +132,7 @@ export default function Test() {
 			setCurrentQuestionIndex,
 			unmarkQuestion,
 			markForReview,
+			isSubmitted,
 		]
 	);
 
@@ -142,6 +158,7 @@ export default function Test() {
 				<SecondaryHeader
 					currentSectionIndex={currentSectionIndex}
 					currentQuestionIndex={currentQuestionIndex}
+					isSubmitted={isSubmitted}
 				/>
 				{memoizedMainContent}
 				{memoizedQuestionControls}

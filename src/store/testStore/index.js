@@ -17,12 +17,27 @@ const useTestStore = create((set, get) => {
 		...scoreMethods,
 		quizMetadata: {},
 		quizStartTime: null,
-		initializeQuestions: questionMethods.initializeQuestions,
-		initializeTimers: timerMethods.initializeTimers,
+		isSubmitted: false,
+		finalTimeTaken: null,
+
 		initializeQuizMetadata: (metadata) => set({ quizMetadata: metadata }),
 		getQuizMetadata: () => get().quizMetadata,
 		setQuizStartTime: (startTime) => set({ quizStartTime: startTime }),
 		getQuizStartTime: () => get().quizStartTime,
+		setIsSubmitted: (value) => set({ isSubmitted: value }),
+		getIsSubmitted: () => get().isSubmitted,
+
+		freezeAllTimers: () => {
+			const currentTime = Date.now();
+			const startTime = get().quizStartTime;
+			const finalTimeTaken = Math.floor((currentTime - startTime) / 1000);
+			set({
+				isSubmitted: true,
+				finalTimeTaken: finalTimeTaken,
+			});
+		},
+
+		getFinalTimeTaken: () => get().finalTimeTaken,
 	};
 });
 
