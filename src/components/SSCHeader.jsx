@@ -1,6 +1,7 @@
 "use client";
 
 import React from "react";
+import Image from "next/image";
 import {
 	Select,
 	SelectTrigger,
@@ -28,10 +29,12 @@ const SSCHeader = () => {
 	return (
 		<div className="shadow-md p-4 flex items-center justify-between bg-gradient-to-r from-[#002219] via-[#0A0F0E] to-[#002219]">
 			<div className="flex items-center">
-				<img
+				<Image
 					src="/infinity-icon.png"
 					alt="Logo"
-					className="h-8 mr-4 object-cover object-center"
+					width={32}
+					height={32}
+					className="mr-4 object-cover object-center"
 				/>
 				<span className="text-white text-2xl font-bold">
 					Infinity Tests

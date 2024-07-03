@@ -1,4 +1,7 @@
+"use client";
+
 import React from "react";
+import Image from "next/image";
 import { Button } from "@/components/ui/button";
 import { PanelRightOpen, PanelRightClose } from "lucide-react";
 import { Tabs, TabsList, TabsTrigger } from "@/components/ui/tabs";
@@ -12,10 +15,12 @@ const TestHeader = ({ setShowNavigation }) => {
 	return (
 		<div className="shadow-md p-4 flex items-center justify-between bg-gradient-to-r from-[#002219] via-[#0A0F0E] to-[#002219]">
 			<div className="flex items-center">
-				<img
+				<Image
 					src="/infinity-icon.png"
 					alt="Logo"
-					className="h-8 mr-4 object-cover object-center"
+					width={32}
+					height={32}
+					className="mr-4 object-cover object-center"
 				/>
 				<div className="flex  overflow-x-auto">
 					<Tabs

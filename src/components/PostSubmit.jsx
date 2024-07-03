@@ -1,4 +1,4 @@
-"use client"
+"use client";
 import { useState } from "react";
 import {
 	Drawer,
@@ -48,7 +48,7 @@ export function PostSubmit() {
 				<DrawerHeader>
 					<DrawerTitle>Results summary</DrawerTitle>
 					<DrawerDescription>
-						Here's a breakdown of your performance.
+						Here&apos;s a breakdown of your performance.
 					</DrawerDescription>
 				</DrawerHeader>
 				<div className="p-4">
