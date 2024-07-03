@@ -17,6 +17,8 @@ import useTestStore from "@/store/testStore";
 export function PostSubmit() {
 	const [isOpen, setIsOpen] = useState(false);
 	const calculateScores = useTestStore((state) => state.calculateScores);
+	const getTotalTimeTaken = useTestStore((state) => state.getTotalTimeTaken);
+	const getTotalTime = useTestStore((state) => state.getTotalTime);
 
 	const handleSubmit = () => {
 		setIsOpen(true);
@@ -32,6 +34,9 @@ export function PostSubmit() {
 		},
 		{ correct: 0, wrong: 0, unattempted: 0 }
 	);
+
+	const timeTaken = getTotalTimeTaken();
+	const totalTime = getTotalTime() * 60; // Convert minutes to seconds
 
 	return (
 		<Drawer open={isOpen} onOpenChange={setIsOpen}>
@@ -56,6 +61,8 @@ export function PostSubmit() {
 						correct={correct}
 						wrong={wrong}
 						unattempted={unattempted}
+						timeTaken={timeTaken}
+						totalTime={totalTime}
 					/>
 				</div>
 				<DrawerFooter>

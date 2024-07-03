@@ -1,5 +1,4 @@
 import React from "react";
-import { Bar } from "react-chartjs-2";
 import {
 	Chart as ChartJS,
 	CategoryScale,
@@ -9,6 +8,7 @@ import {
 	Tooltip,
 	Legend,
 } from "chart.js";
+import { Bar } from "react-chartjs-2";
 
 ChartJS.register(
 	CategoryScale,
@@ -54,7 +54,7 @@ const ResultsBarChart = ({
 	};
 
 	const timeData = {
-		labels: ["Time Taken"],
+		labels: ["Time Distribution"],
 		datasets: [
 			{
 				label: "Time Taken",
@@ -73,27 +73,20 @@ const ResultsBarChart = ({
 		],
 	};
 
+	const formatTime = (seconds) => {
+		const minutes = Math.floor(seconds / 60);
+		const remainingSeconds = seconds % 60;
+		return `${minutes}m ${remainingSeconds}s`;
+	};
+
 	const commonOptions = {
 		indexAxis: "y",
 		responsive: true,
 		maintainAspectRatio: false,
 		plugins: {
 			legend: {
-				display: false,
-			},
-			tooltip: {
-				callbacks: {
-					label: function (context) {
-						let label = context.dataset.label || "";
-						if (label) {
-							label += ": ";
-						}
-						if (context.parsed.x !== null) {
-							label += context.parsed.x;
-						}
-						return label;
-					},
-				},
+				display: true,
+				position: "bottom",
 			},
 		},
 		scales: {
@@ -103,26 +96,76 @@ const ResultsBarChart = ({
 			},
 			y: {
 				stacked: true,
-				barThickness: 1,
-			},
-		},
-		elements: {
-			bar: {
-				borderRadius: 0,
-				borderSkipped: false,
 			},
 		},
 	};
 
-	// Calculate total score
-	const totalScore = correct - wrong; // Assuming 1 point for correct and -1 for wrong
-
-	// Format time taken
-	const formatTime = (seconds) => {
-		const minutes = Math.floor(seconds / 60);
-		const remainingSeconds = seconds % 60;
-		return `${minutes}m ${remainingSeconds}s`;
+	const resultsOptions = {
+		...commonOptions,
+		plugins: {
+			...commonOptions.plugins,
+			tooltip: {
+				callbacks: {
+					label: function (context) {
+						let label = context.dataset.label || "";
+						if (label) {
+							label += ": ";
+						}
+						if (context.parsed.x !== null) {
+							label += context.parsed.x.toFixed(0);
+							label += " questions";
+						}
+						return label;
+					},
+				},
+			},
+		},
+		scales: {
+			...commonOptions.scales,
+			x: {
+				...commonOptions.scales.x,
+				ticks: {
+					callback: function (value) {
+						return value.toFixed(0);
+					},
+				},
+			},
+		},
 	};
+
+	const timeOptions = {
+		...commonOptions,
+		plugins: {
+			...commonOptions.plugins,
+			tooltip: {
+				callbacks: {
+					label: function (context) {
+						let label = context.dataset.label || "";
+						if (label) {
+							label += ": ";
+						}
+						if (context.parsed.x !== null) {
+							label += formatTime(context.parsed.x);
+						}
+						return label;
+					},
+				},
+			},
+		},
+		scales: {
+			...commonOptions.scales,
+			x: {
+				...commonOptions.scales.x,
+				ticks: {
+					callback: function (value) {
+						return formatTime(value);
+					},
+				},
+			},
+		},
+	};
+
+	const totalScore = correct - wrong;
 
 	return (
 		<div className="chart-container">
@@ -131,35 +174,17 @@ const ResultsBarChart = ({
 					Quiz Results (Total Score:{" "}
 					<span className="font-semibold">{totalScore}</span>)
 				</h2>
-				<Bar
-					options={{
-						...commonOptions,
-						plugins: {
-							...commonOptions.plugins,
-							title: { display: true, text: "Quiz Results" },
-						},
-					}}
-					data={resultsData}
-				/>
+				<Bar options={resultsOptions} data={resultsData} />
 			</div>
 			<div className="chart-wrapper">
 				<h2>
-					Time Taken (Time Taken:{" "}
+					Time Distribution (Time Taken:{" "}
 					<span className="font-semibold">
 						{formatTime(timeTaken)}
 					</span>
 					)
 				</h2>
-				<Bar
-					options={{
-						...commonOptions,
-						plugins: {
-							...commonOptions.plugins,
-							title: { display: true, text: "Time Taken" },
-						},
-					}}
-					data={timeData}
-				/>
+				<Bar options={timeOptions} data={timeData} />
 			</div>
 		</div>
 	);

@@ -10,6 +10,7 @@ const SecondaryHeader = ({ currentSectionIndex, currentQuestionIndex }) => {
 		updateQuestionTimer,
 		getQuizMetadata,
 		getQuizStartTime,
+		setTotalTimeTaken,
 	} = useTestStore();
 
 	const { totalTimeInMinutes, positiveMarks, negativeMarks } =
@@ -18,6 +19,7 @@ const SecondaryHeader = ({ currentSectionIndex, currentQuestionIndex }) => {
 
 	const [globalTimeRemaining, setGlobalTimeRemaining] = useState(null);
 	const [questionElapsedTime, setQuestionElapsedTime] = useState(null);
+	const [totalTimeTaken, setLocalTotalTimeTaken] = useState(0);
 
 	useEffect(() => {
 		const initializeTimers = () => {
@@ -33,15 +35,13 @@ const SecondaryHeader = ({ currentSectionIndex, currentQuestionIndex }) => {
 			setQuestionElapsedTime(
 				getElapsedTime(currentSectionIndex, currentQuestionIndex)
 			);
+			setLocalTotalTimeTaken(elapsedSeconds);
 		};
 
 		initializeTimers();
 
-		const globalTimer = setInterval(() => {
+		const timer = setInterval(() => {
 			setGlobalTimeRemaining((prevTime) => Math.max(prevTime - 1, 0));
-		}, 1000);
-
-		const questionTimer = setInterval(() => {
 			setQuestionElapsedTime((prevTime) => {
 				const newTime = prevTime + 1;
 				updateQuestionTimer(
@@ -51,12 +51,14 @@ const SecondaryHeader = ({ currentSectionIndex, currentQuestionIndex }) => {
 				);
 				return newTime;
 			});
+			setLocalTotalTimeTaken((prevTime) => {
+				const newTime = prevTime + 1;
+				setTotalTimeTaken(newTime);
+				return newTime;
+			});
 		}, 1000);
 
-		return () => {
-			clearInterval(globalTimer);
-			clearInterval(questionTimer);
-		};
+		return () => clearInterval(timer);
 	}, [
 		currentSectionIndex,
 		currentQuestionIndex,
@@ -64,6 +66,7 @@ const SecondaryHeader = ({ currentSectionIndex, currentQuestionIndex }) => {
 		quizStartTime,
 		totalTimeInMinutes,
 		getElapsedTime,
+		setTotalTimeTaken,
 	]);
 
 	const formatTime = (time) => {
