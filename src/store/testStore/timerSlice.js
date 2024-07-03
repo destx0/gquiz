@@ -1,39 +1,36 @@
 export const timerSlice = (set, get) => ({
-	questionTimers: [],
+	questionTimers: {},
+	totalTimeInMinutes: 60, // Default value, should be set during initialization
+	positiveMarks: 1, // Default value, should be set during initialization
+	negativeMarks: 0, // Default value, should be set during initialization
 
-	initializeTimers: (questions) =>
+	initializeTimers: (questions, totalTime, posMarks, negMarks) =>
 		set({
-			questionTimers: questions.map((section) =>
-				new Array(section.questions.length).fill(0)
-			),
+			questionTimers: questions.reduce((acc, section, sectionIndex) => {
+				section.questions.forEach((_, questionIndex) => {
+					acc[`${sectionIndex}-${questionIndex}`] = 0;
+				});
+				return acc;
+			}, {}),
+			totalTimeInMinutes: totalTime || 60,
+			positiveMarks: posMarks || 1,
+			negativeMarks: negMarks || 0,
 		}),
 
 	updateQuestionTimer: (sectionIndex, questionIndex, elapsedTime) =>
-		set((state) => {
-			const newQuestionTimers = [...state.questionTimers];
-			if (!newQuestionTimers[sectionIndex]) {
-				newQuestionTimers[sectionIndex] = [];
-			}
-			if (!newQuestionTimers[sectionIndex][questionIndex]) {
-				newQuestionTimers[sectionIndex][questionIndex] = 0;
-			}
-			newQuestionTimers[sectionIndex][questionIndex] = elapsedTime;
-			return { questionTimers: newQuestionTimers };
-		}),
-
-	getElapsedTime: (sectionIndex, questionIndex) => {
-		const state = get();
-		if (!state.questionTimers || !state.questionTimers[sectionIndex]) {
-			return 0;
-		}
-		return state.questionTimers[sectionIndex][questionIndex] || 0;
-	},
-	questionTimers: {},
-	updateQuestionTimer: (sectionIndex, questionIndex, time) =>
 		set((state) => ({
 			questionTimers: {
 				...state.questionTimers,
-				[`${sectionIndex}-${questionIndex}`]: time,
+				[`${sectionIndex}-${questionIndex}`]: elapsedTime,
 			},
 		})),
+
+	getElapsedTime: (sectionIndex, questionIndex) => {
+		const state = get();
+		return state.questionTimers[`${sectionIndex}-${questionIndex}`] || 0;
+	},
+
+	getTotalTime: () => get().totalTimeInMinutes,
+	getPositiveMarks: () => get().positiveMarks,
+	getNegativeMarks: () => get().negativeMarks,
 });

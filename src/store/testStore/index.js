@@ -15,10 +15,14 @@ const useTestStore = create((set, get) => {
 		...navigationMethods,
 		...timerMethods,
 		...scoreMethods,
-		initializeTest: (questions) => {
-			questionMethods.initializeQuestions(questions);
-			timerMethods.initializeTimers(questions);
-		},
+		quizMetadata: {},
+		quizStartTime: null,
+		initializeQuestions: questionMethods.initializeQuestions,
+		initializeTimers: timerMethods.initializeTimers,
+		initializeQuizMetadata: (metadata) => set({ quizMetadata: metadata }),
+		getQuizMetadata: () => get().quizMetadata,
+		setQuizStartTime: (startTime) => set({ quizStartTime: startTime }),
+		getQuizStartTime: () => get().quizStartTime,
 	};
 });
 

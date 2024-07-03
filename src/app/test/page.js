@@ -11,6 +11,9 @@ import useTestStore from "@/store/testStore";
 export default function Test() {
 	const {
 		initializeQuestions,
+		initializeTimers,
+		initializeQuizMetadata,
+		setQuizStartTime,
 		setCurrentSectionIndex,
 		setCurrentQuestionIndex,
 		handleOptionSelect,
@@ -28,7 +31,24 @@ export default function Test() {
 	} = useTestStore();
 
 	useEffect(() => {
+		// Initialize questions
 		initializeQuestions(quizData.questions);
+
+		// Initialize timers
+		initializeTimers(quizData.questions, quizData.totalTimeInMinutes);
+
+		// Initialize quiz metadata
+		initializeQuizMetadata({
+			name: quizData.name,
+			description: quizData.description,
+			language: quizData.language,
+			totalTimeInMinutes: quizData.totalTimeInMinutes,
+			positiveMarks: quizData.positiveMarks,
+			negativeMarks: quizData.negativeMarks,
+		});
+
+		// Set quiz start time
+		setQuizStartTime(Date.now());
 
 		const handleResize = () => {
 			setShowNavigation(window.innerWidth >= 768);
@@ -40,7 +60,13 @@ export default function Test() {
 		return () => {
 			window.removeEventListener("resize", handleResize);
 		};
-	}, [initializeQuestions, setShowNavigation]);
+	}, [
+		initializeQuestions,
+		initializeTimers,
+		initializeQuizMetadata,
+		setQuizStartTime,
+		setShowNavigation,
+	]);
 
 	useEffect(() => {
 		markQuestionAsVisited();
@@ -114,7 +140,6 @@ export default function Test() {
 					quizName={quizData.name}
 				/>
 				<SecondaryHeader
-					quizData={quizData}
 					currentSectionIndex={currentSectionIndex}
 					currentQuestionIndex={currentQuestionIndex}
 				/>

@@ -3,7 +3,7 @@ const quizData = {
 	description:
 		"A comprehensive quiz covering General Knowledge, Science, Mathematics, and History topics.",
 	language: "English",
-	totalTimeInMinutes: 60,
+	totalTimeInMinutes: 6,
 	positiveMarks: 4,
 	negativeMarks: 1,
 	questions: [
