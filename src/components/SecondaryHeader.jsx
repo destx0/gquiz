@@ -18,6 +18,9 @@ const SecondaryHeader = ({ currentSectionIndex, currentQuestionIndex }) => {
 
 	const { totalTimeInMinutes, positiveMarks, negativeMarks } =
 		getQuizMetadata();
+	const isSubmitted = getIsSubmitted();
+	const timersFrozen = areTimersFrozen();
+
 	const [globalTimeRemaining, setGlobalTimeRemaining] = useState(
 		getGlobalTimeRemaining()
 	);
@@ -26,15 +29,15 @@ const SecondaryHeader = ({ currentSectionIndex, currentQuestionIndex }) => {
 	);
 
 	useEffect(() => {
-		if (!areTimersFrozen() && !getIsSubmitted()) {
+		if (!isSubmitted && !timersFrozen) {
 			const timer = setInterval(() => {
-				updateGlobalTimeRemaining();
 				const newGlobalTimeRemaining = getGlobalTimeRemaining();
 				setGlobalTimeRemaining(newGlobalTimeRemaining);
 
 				if (newGlobalTimeRemaining <= 0) {
 					clearInterval(timer);
 				} else {
+					updateGlobalTimeRemaining();
 					const newElapsedTime =
 						getElapsedTime(
 							currentSectionIndex,
@@ -46,7 +49,6 @@ const SecondaryHeader = ({ currentSectionIndex, currentQuestionIndex }) => {
 						newElapsedTime
 					);
 					setQuestionElapsedTime(newElapsedTime);
-
 					setTotalTimeTaken((prev) => prev + 1);
 				}
 			}, 1000);
@@ -56,14 +58,20 @@ const SecondaryHeader = ({ currentSectionIndex, currentQuestionIndex }) => {
 	}, [
 		currentSectionIndex,
 		currentQuestionIndex,
-		areTimersFrozen,
-		getIsSubmitted,
+		isSubmitted,
+		timersFrozen,
 		updateGlobalTimeRemaining,
 		getGlobalTimeRemaining,
 		updateQuestionTimer,
 		getElapsedTime,
 		setTotalTimeTaken,
 	]);
+
+	useEffect(() => {
+		setQuestionElapsedTime(
+			getElapsedTime(currentSectionIndex, currentQuestionIndex)
+		);
+	}, [currentSectionIndex, currentQuestionIndex, getElapsedTime]);
 
 	const formatTime = (time) => {
 		if (typeof time !== "number" || isNaN(time)) {
