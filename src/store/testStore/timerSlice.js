@@ -28,4 +28,12 @@ export const timerSlice = (set, get) => ({
 		}
 		return state.questionTimers[sectionIndex][questionIndex] || 0;
 	},
+	questionTimers: {},
+	updateQuestionTimer: (sectionIndex, questionIndex, time) =>
+		set((state) => ({
+			questionTimers: {
+				...state.questionTimers,
+				[`${sectionIndex}-${questionIndex}`]: time,
+			},
+		})),
 });
