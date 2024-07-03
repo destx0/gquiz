@@ -1,4 +1,3 @@
-// src/components/ResultsBarChart.js
 import React from "react";
 import { Bar } from "react-chartjs-2";
 import {
@@ -33,21 +32,21 @@ const ResultsBarChart = ({
 			{
 				label: "Correct",
 				data: [correct],
-				backgroundColor: "rgba(0, 128, 0, 0.8)", // More saturated green
+				backgroundColor: "rgba(0, 128, 0, 0.8)",
 				borderColor: "rgba(0, 128, 0, 1)",
 				borderWidth: 1,
 			},
 			{
 				label: "Wrong",
 				data: [wrong],
-				backgroundColor: "rgba(255, 0, 0, 0.8)", // More saturated red
+				backgroundColor: "rgba(255, 0, 0, 0.8)",
 				borderColor: "rgba(255, 0, 0, 1)",
 				borderWidth: 1,
 			},
 			{
 				label: "Unattempted",
 				data: [unattempted],
-				backgroundColor: "rgba(255, 165, 0, 0.8)", // More saturated orange
+				backgroundColor: "rgba(255, 165, 0, 0.8)",
 				borderColor: "rgba(255, 165, 0, 1)",
 				borderWidth: 1,
 			},
@@ -60,14 +59,14 @@ const ResultsBarChart = ({
 			{
 				label: "Time Taken",
 				data: [timeTaken],
-				backgroundColor: "rgba(0, 128, 0, 0.8)", // More saturated green
+				backgroundColor: "rgba(0, 128, 0, 0.8)",
 				borderColor: "rgba(0, 128, 0, 1)",
 				borderWidth: 1,
 			},
 			{
 				label: "Remaining Time",
 				data: [totalTime - timeTaken],
-				backgroundColor: "rgba(255, 165, 0, 0.8)", // More saturated orange
+				backgroundColor: "rgba(255, 165, 0, 0.8)",
 				borderColor: "rgba(255, 165, 0, 1)",
 				borderWidth: 1,
 			},
@@ -104,21 +103,34 @@ const ResultsBarChart = ({
 			},
 			y: {
 				stacked: true,
-				barThickness: 1, // Adjust the bar height
+				barThickness: 1,
 			},
 		},
 		elements: {
 			bar: {
-				borderRadius: 0, // No rounded corners
+				borderRadius: 0,
 				borderSkipped: false,
 			},
 		},
 	};
 
+	// Calculate total score
+	const totalScore = correct - wrong; // Assuming 1 point for correct and -1 for wrong
+
+	// Format time taken
+	const formatTime = (seconds) => {
+		const minutes = Math.floor(seconds / 60);
+		const remainingSeconds = seconds % 60;
+		return `${minutes}m ${remainingSeconds}s`;
+	};
+
 	return (
 		<div className="chart-container">
 			<div className="chart-wrapper">
-				<h2>Quiz Results</h2>
+				<h2>
+					Quiz Results (Total Score:{" "}
+					<span className="font-semibold">{totalScore}</span>)
+				</h2>
 				<Bar
 					options={{
 						...commonOptions,
@@ -130,8 +142,14 @@ const ResultsBarChart = ({
 					data={resultsData}
 				/>
 			</div>
-			<div className="chart-wrapper ">
-				<h2>Time Taken</h2>
+			<div className="chart-wrapper">
+				<h2>
+					Time Taken (Time Taken:{" "}
+					<span className="font-semibold">
+						{formatTime(timeTaken)}
+					</span>
+					)
+				</h2>
 				<Bar
 					options={{
 						...commonOptions,

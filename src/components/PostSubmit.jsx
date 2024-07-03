@@ -56,23 +56,6 @@ export function PostSubmit() {
 						wrong={wrong}
 						unattempted={unattempted}
 					/>
-					<div className="mt-4">
-						<h3 className="font-semibold">Section Scores:</h3>
-						{scores.sectionScores.map((section, index) => (
-							<div key={index} className="flex justify-between">
-								<span>{section.section}:</span>
-								<span>
-									{section.score} / {section.totalQuestions}
-								</span>
-							</div>
-						))}
-						<div className="mt-2 font-bold flex justify-between">
-							<span>Total Score:</span>
-							<span>
-								{scores.totalScore} / {scores.totalQuestions}
-							</span>
-						</div>
-					</div>
 				</div>
 				<DrawerFooter>
 					<div className="flex gap-4 justify-center">
