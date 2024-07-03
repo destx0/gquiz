@@ -5,7 +5,7 @@ import Image from "next/image";
 import { Button } from "@/components/ui/button";
 import { PanelRightOpen, PanelRightClose } from "lucide-react";
 import { Tabs, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import questions from "@/data/questions";
+import quizData from "@/data/quizData"; // Updated import
 import useTestStore from "@/store/testStore";
 
 const TestHeader = ({ setShowNavigation }) => {
@@ -22,7 +22,7 @@ const TestHeader = ({ setShowNavigation }) => {
 					height={32}
 					className="mr-4 object-cover object-center"
 				/>
-				<div className="flex  overflow-x-auto">
+				<div className="flex overflow-x-auto">
 					<Tabs
 						defaultValue={currentSectionIndex.toString()}
 						onValueChange={(value) =>
@@ -31,7 +31,7 @@ const TestHeader = ({ setShowNavigation }) => {
 						className=""
 					>
 						<TabsList className="flex px-2 gap-2">
-							{questions.map((section, index) => (
+							{quizData.questions.map((section, index) => (
 								<TabsTrigger
 									key={index}
 									value={index.toString()}

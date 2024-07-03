@@ -3,7 +3,7 @@ import { Button } from "@/components/ui/button";
 import QuestionNavigation from "@/components/QuestionNavigation";
 import QuestionDescription from "@/components/QuestionDescription";
 import { Separator } from "@/components/ui/separator";
-import questions from "@/data/questions"; // Import questions data to get section names
+import quizData from "@/data/quizData"; // Updated import
 
 const NavigationSidebar = ({
 	currentSectionIndex,
@@ -17,6 +17,9 @@ const NavigationSidebar = ({
 	numberOfQuestions,
 }) => {
 	if (!showNavigation) return null;
+
+	const currentSection = quizData.questions[currentSectionIndex];
+	const sectionQuestions = currentSection.questions;
 
 	// Calculate the counts for the current section
 	const answeredCount = selectedOptions.filter(
@@ -37,7 +40,7 @@ const NavigationSidebar = ({
 		<div className={`fixed right-0 h-full w-64 bg-gray-100 shadow-lg`}>
 			<div className="flex justify-between items-center p-4 bg-muted shadow-2xl">
 				<h2 className="text-lg font-semibold text-primary">
-					Section: {questions[currentSectionIndex].section}
+					Section: {currentSection.section}
 				</h2>
 			</div>
 			<div>
@@ -54,7 +57,7 @@ const NavigationSidebar = ({
 				<Separator />
 				<div className="">
 					<QuestionNavigation
-						numberOfQuestions={numberOfQuestions}
+						numberOfQuestions={sectionQuestions.length}
 						currentQuestionIndex={currentQuestionIndex}
 						jumpToQuestion={(questionIndex) =>
 							jumpToQuestion(currentSectionIndex, questionIndex)
