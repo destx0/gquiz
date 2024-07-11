@@ -3,18 +3,20 @@ import { questionSlice } from "./questionSlice";
 import { navigationSlice } from "./navigationSlice";
 import { timerSlice } from "./timerSlice";
 import { scoreSlice } from "./scoreSlice";
+import { firebaseSlice } from "./firebaseSlice";
 
 const useTestStore = create((set, get) => {
 	const questionMethods = questionSlice(set, get);
 	const navigationMethods = navigationSlice(set, get);
 	const timerMethods = timerSlice(set, get);
 	const scoreMethods = scoreSlice(set, get);
-
+	const firebaseMethods = firebaseSlice(set, get);
 	return {
 		...questionMethods,
 		...navigationMethods,
 		...timerMethods,
 		...scoreMethods,
+		...firebaseMethods,
 		quizMetadata: {},
 		quizStartTime: null,
 		isSubmitted: false,
